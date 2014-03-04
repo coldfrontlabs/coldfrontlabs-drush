@@ -1,15 +1,19 @@
 class drush ($version = $::version) {
-  if (!$hasdrush) {
+  notify {$hasdrush:}
+  if $hasdrush == 'not-installed' {
     include composer
-
+    notify {'hello':}
     file {'/tmp/drushme':
-      type => 'directory',
+      mode => '0755',
+      ensure => 'directory'
+
     }
 
     file {'/tmp/drushme/composer.json':
-      type => 'file',
       content => '{"name":"drushme","require":{"php":">=5.3.0"},"config":{"bin-dir":"/usr/local/bin","vendor-dir":"/usr/local/share/composer"},"require":{"drush/drush":">=6"}}',
       require => File['/tmp/drushme'],
+      mode => '0644',
+      ensure => 'present',
     }
 
     composer::exec {'install-drush':
