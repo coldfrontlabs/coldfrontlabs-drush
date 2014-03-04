@@ -10,6 +10,6 @@ class drush ($version = $::version) {
     unless => "drush --version | grep -c 'version'",
     }->
   exec{'set-composer-path':
-    command => "sed -i '1i export PATH="$HOME/.composer/vendor/bin:$PATH\"' $HOME/.bashrc"
+    command => "sed -i '1i export PATH=\"\$HOME/.composer/vendor/bin:\$PATH\"' \$HOME/.bashrc"
   }
 }
