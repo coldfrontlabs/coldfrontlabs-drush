@@ -1,22 +1,20 @@
 class drush ($version = $::version) {
-  class { 'composer':
-      target_dir      => '/usr/local/bin',
-      composer_file   => 'composer', # could also be 'composer.phar'
-      download_method => 'curl',     # or 'wget'
-      logoutput       => false,
-      tmp_path        => '/tmp',
-#      php_package     => 'php5-cli',
-#      curl_package    => 'curl',
-#      wget_package    => 'wget',
-      composer_home   => '/root',
-#      php_bin         => 'php', # could also i.e. be 'php -d "apc.enable_cli=0"' for more fine grained control
-#      suhosin_enabled => true,
+  include composer
+
+  file {'/tmp/drushme':} {
+    type => 'directory',
   }
 
+  file {'/tmp/drushme/composer.json':
+    type => 'file',
+    content => '{"name":"drushme","require":{"php":">=5.3.0"},"config":{"bin-dir":"/usr/local/bin","vendor-dir":"/usr/local/share/composer"},"require":{"drush/drush":">=6"}}',
+    require => File['/tmp/drushme'],
+  }
 
-  composer::require {'drush/drush:${version}':
-      project_name         => 'drush/drush:6.*',
-      target_dir           => '/usr/local/bin', # REQUIRED
-      global               => true,  # Add global requirement
+  composer::exec {'install-drush':
+    cmd => 'install',
+    cwd => '/tmp/drushme',
+    require => File['/tmp/drushme/composer.json'],
+    unless => 'file -h /user/local/bin/drush',
   }
 }
