@@ -12,4 +12,5 @@ class drush ($version = $::version) {
       interaction          => false, # No interactive questions
       optimize             => false, # Optimize autoloader
       dev                  => false, # Install dev dependencies
+  }
 }
