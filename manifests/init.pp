@@ -1,5 +1,5 @@
 class drush ($version = $::version) {
-  if ($hasdrush == '') {
+  if (!$hasdrush) {
     include composer
 
     file {'/tmp/drushme':
