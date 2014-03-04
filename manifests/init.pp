@@ -1,15 +1,15 @@
 class drush ($version = $::version) {
-  include composer
-
-  if ($version) {
-    # Do nothing
-  } else {
-    $version = '6.x'
+  class {'composer':
+    provider => 'wget', # @todo make this check if php-composer is available
+    require => Package[php-cli],
+    before => Composer::Project['drush/drush:${version}'],
   }
 
-  class {'composer':
-    provider => 'drush/drush:${version}',
-    ensure => present,
-    require => Package[php-cli],
+  composer::project {'drush/drush:${version}':
+    ensure => 'present',
+    global => true,
+    require_proj => true,
+    target => '/usr/local/drush',
+    dev => false,
   }
 }
