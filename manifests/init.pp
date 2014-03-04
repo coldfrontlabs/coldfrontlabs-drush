@@ -1,9 +1,10 @@
 class drush ($version = $::version) {
   include composer
 
-  file {'/tmp/drushme':} {
+  file {'/tmp/drushme':
     type => 'directory',
   }
+
 
   file {'/tmp/drushme/composer.json':
     type => 'file',
