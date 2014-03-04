@@ -4,7 +4,6 @@ class drush ($version = $::version) {
 
     file {'/tmp/drushme':
       type => 'directory',
-      unless => 'file -h /user/local/bin/drush',
     }
 
     file {'/tmp/drushme/composer.json':
