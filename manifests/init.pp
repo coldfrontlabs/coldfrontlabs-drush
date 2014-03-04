@@ -1,8 +1,7 @@
 class drush ($version = $::version) {
-  notify {$hasdrush:}
   if $hasdrush == 'not-installed' {
     include composer
-    notify {'hello':}
+
     file {'/tmp/drushme':
       mode => '0755',
       ensure => 'directory'
