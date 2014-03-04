@@ -15,8 +15,8 @@ class drush ($version = $::version) {
 
 
   composer::require {'drush/drush:${version}':
-      project_name => 'drush/drush:6.*',
-      target_dir                  => '/usr/local/bin', # REQUIRED
+      project_name         => 'drush/drush:6.*',
+      target_dir           => '/usr/local/bin', # REQUIRED
       global               => true,  # Add global requirement
   }
 }
