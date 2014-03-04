@@ -7,4 +7,4 @@ summary 'UNKNOWN'
 description 'UNKNOWN'
 project_page 'UNKNOWN'
 
-dependency 'brainsware/composer', '>= 0.2.2'
+dependency 'tPl0ch/composer', '>= 1.2.1'

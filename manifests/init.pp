@@ -1,15 +1,15 @@
 class drush ($version = $::version) {
-  class {'composer':
-    provider => 'wget', # @todo make this check if php-composer is available
-    require => Package[php-cli],
-    before => Exec['drush/drush:${version}'],
-  }
+  include composer
 
-  exec {'drush/drush:${version}':
-    command     => "composer global require ${title} --quiet",
-    unless => "drush --version | grep -c 'version'",
-    }->
-  exec{'set-composer-path':
-    command => "sed -i '1i export PATH=\"\$HOME/.composer/vendor/bin:\$PATH\"' \$HOME/.bashrc"
-  }
+  composer::requirepack {'drush/drush:${version}':
+      cwd                  => '/usr/local/bin', # REQUIRED
+      global               => true,  # Add global requirement
+      prefer_source        => false,
+      prefer_dist          => false,
+      dry_run              => false, # Just simulate actions
+      custom_installers    => false, # No custom installers
+      scripts              => false, # No script execution
+      interaction          => false, # No interactive questions
+      optimize             => false, # Optimize autoloader
+      dev                  => false, # Install dev dependencies
 }
