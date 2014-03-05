@@ -1,7 +1,7 @@
 define drush::si ($profile = undef, $settings = undef, $options = undef) {
 
   exec {"drush-si-${name}":
-    command => "drush si $profile $settings -y",
+    command => "drush si $profile $settings $options -y",
     cwd     => $sitepath,
   }
 
