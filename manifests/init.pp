@@ -5,8 +5,9 @@ class drush ($version = $::version) {
     file {'/tmp/drushme':
       mode => '0755',
       ensure => 'directory'
-
     }
+
+    package { ['zip']: ensure => present}
 
     file {'/tmp/drushme/composer.json':
       content => '{"name":"drushme","require":{"php":">=5.3.0"},"config":{"bin-dir":"/usr/local/bin","vendor-dir":"/usr/local/share/composer"},"require":{"drush/drush":">=6"}}',
