@@ -1,5 +1,5 @@
 class drush ($version = $::version) {
-  package { ['zip']: ensure => present}
+  package { ['zip', 'unzip']: ensure => present}
 
   if $hasdrush == 'not-installed' {
     include composer
