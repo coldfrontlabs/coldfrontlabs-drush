@@ -21,9 +21,5 @@ class drush ($version = $::version) {
       cwd => '/tmp/drushme',
       require => File['/tmp/drushme/composer.json'],
     }
-    ->exec {'drush_status':
-      command => 'drush status',
-      path => ['/usr/local/bin'],
-    }
   }
 }
