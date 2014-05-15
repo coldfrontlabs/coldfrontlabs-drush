@@ -1,4 +1,4 @@
-define drush::dl ($destination = undef, $source = undef) {
+define drush::dl ($destination = undef, $source = undef, $project_name = undef) {
 
   if !$destination {
     $dst = ""
@@ -12,8 +12,12 @@ define drush::dl ($destination = undef, $source = undef) {
     $src = "--source=$source"
   }
 
+  if !$project_name {
+    $project_name = $name
+  }
+
   exec {"drush-dl-${name}":
-    command => "drush $dst $src dl ${name} -y",
+    command => "drush $dst $src dl ${project_name} -y",
     cwd     => $sitepath,
   }
 
