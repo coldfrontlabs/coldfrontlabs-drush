@@ -1,5 +1,6 @@
 define drush::dl ($destination = undef, $source = undef, $project_name = undef, $default_major = undef) {
   Exec { path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/", "/usr/local/bin", "/usr/local/sbin" ] }
+
   if !$destination {
     $dst = ""
   } else {
@@ -19,7 +20,7 @@ define drush::dl ($destination = undef, $source = undef, $project_name = undef, 
   if !$default_major {
     $dm = ""
   } else {
-    $dm = "--default_major=$default_major"
+    $dm = "--default-major=$default_major"
   }
 
   exec {"drush-dl-${name}":
