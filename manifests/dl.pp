@@ -1,4 +1,4 @@
-define drush::dl ($destination = undef, $source = undef, $project_name = undef, $default_major = undef) {
+define drush::dl ($destination = undef, $source = undef, $project_name = undef, $default_major = undef, $drupal_project_rename = undef) {
   Exec { path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/", "/usr/local/bin", "/usr/local/sbin" ] }
 
   if !$destination {
@@ -23,8 +23,14 @@ define drush::dl ($destination = undef, $source = undef, $project_name = undef, 
     $dm = "--default-major=$default_major"
   }
 
+  if !$drupal_project_rename {
+    $dprn = ""
+  } else {
+    $dprn = "--drupal-project-rename=$drupal_project_rename"
+  }
+
   exec {"drush-dl-${name}":
-    command => "drush $dst $src $dm dl ${project_name} -y",
+    command => "drush $dst $src $dm $dprn dl ${project_name} -y",
     cwd     => $sitepath,
   }
 
