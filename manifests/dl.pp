@@ -1,6 +1,5 @@
-Exec { path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/", "/usr/local/bin", "/usr/local/sbin" ] }
 define drush::dl ($destination = undef, $source = undef, $project_name = undef, $default_major = undef) {
-
+  Exec { path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/", "/usr/local/bin", "/usr/local/sbin" ] }
   if !$destination {
     $dst = ""
   } else {
