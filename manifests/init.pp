@@ -1,5 +1,5 @@
 class drush ($version = $::version) {
-  package { ['zip']: ensure => present}
+  package { ['zip', 'unzip']: ensure => present}
 
   if $hasdrush == 'not-installed' {
     include composer
@@ -20,10 +20,6 @@ class drush ($version = $::version) {
       cmd => 'install',
       cwd => '/tmp/drushme',
       require => File['/tmp/drushme/composer.json'],
-    }
-    ->exec {'drush_status':
-      command => 'drush status',
-      path => ['/usr/local/bin'],
     }
   }
 }
