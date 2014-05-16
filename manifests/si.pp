@@ -71,6 +71,7 @@ define drush::si ($profile = undef,
   exec {"drush-si-${name}":
     command => "drush si $profile $settings $siteroot $dburl $accountname $accountpass $accountmail $cleanurl $dbprefix $dbsu $dbsupw $lcl $sitemail $sitename $sitessubdir -y",
     cwd     => $site_root,
-    onlyif  => $onlyif
+    onlyif  => $onlyif,
+    timeout => 0,
   }
 }
