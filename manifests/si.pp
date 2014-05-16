@@ -68,7 +68,7 @@ define drush::si ($profile = undef,
     $sitessubdir = "--sites-subdir=${sites_subdir}"
   }
 
-  exec {"drush-si-${name}-${profile}":
+  exec {"drush-si-${name}":
     command => "drush si $profile $settings $siteroot $dburl $accountname $accountpass $accountmail $cleanurl $dbprefix $dbsu $dbsupw $lcl $sitemail $sitename $sitessubdir -y",
     cwd     => $site_root,
     onlyif  => $onlyif
