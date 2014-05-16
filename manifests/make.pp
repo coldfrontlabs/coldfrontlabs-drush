@@ -27,7 +27,7 @@ define drush::make ($makefile,
 {
   Exec { path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/", "/usr/local/bin", "/usr/local/sbin" ] }
 
-  $combined_onlyif = "test -e ${build_path} && ${onlyif}"
+  $combined_onlyif = "test ! -e ${build_path} && ${onlyif}"
 
   if $concurrency {
     $cnc = "--concurrency=${concurrency}"
