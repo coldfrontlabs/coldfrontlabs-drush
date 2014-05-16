@@ -73,10 +73,4 @@ define drush::si ($profile = undef,
     cwd     => $site_root,
     onlyif  => $onlyif
   }
-
-  if defined(Exec["drush-si-${name}"]) {
-    Exec["drush-si-${name}"] {
-      before  => Exec["drush-si-${name}"],
-    }
-  }
 }
