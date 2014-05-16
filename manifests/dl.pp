@@ -1,4 +1,10 @@
-define drush::dl ($destination = undef, $source = undef, $project_name = undef, $default_major = undef, $drupal_project_rename = undef, $onlyif = true) {
+define drush::dl ($destination = undef,
+                  $source = undef,
+                  $project_name = undef,
+                  $default_major = undef,
+                  $drupal_project_rename = undef,
+                  $onlyif = true)
+{
   Exec { path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/", "/usr/local/bin", "/usr/local/sbin" ] }
 
   $args = ''
