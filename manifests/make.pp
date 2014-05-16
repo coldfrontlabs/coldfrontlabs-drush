@@ -22,7 +22,7 @@ define drush::make ($makefile,
                     $translations = undef,
                     $version = undef,
                     $working_copy = undef,
-                    $onlyif = true
+                    $onlyif = 1
                     )
 {
   Exec { path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/", "/usr/local/bin", "/usr/local/sbin" ] }

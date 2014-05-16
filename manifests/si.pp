@@ -13,7 +13,7 @@ define drush::si ($profile = undef,
                   $sites_subdir = undef,
                   $settings = '',
                   $site_root,
-                  $onlyif = true
+                  $onlyif = 1
                 )
 {
   Exec { path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/", "/usr/local/bin", "/usr/local/sbin" ] }
