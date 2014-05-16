@@ -103,6 +103,6 @@ define drush::make ($makefile,
   exec {"drush-make-${makefile}-${build_path}":
     command => "drush make $makefile $build_path $args -y",
     onlyif => $onlyif,
-    cwd = '/tmp',
+    cwd => '/tmp',
   }
 }
