@@ -107,7 +107,7 @@ define drush::make ($makefile,
 
   exec { "drush-make-rmdir-${makefile}-${build_path}":
     command  => "rmdir ${build_path} &> /dev/null || true",
-    onlyif => "test -d ${build_path}"
+    onlyif => "test -z `ls -A ${build_path} | wc -l`"
   }
 
   # Since drush make won't overwrite an existing directory, we remove an empty directory if it's there already (say for instance puppet/apache already provisioned it)
