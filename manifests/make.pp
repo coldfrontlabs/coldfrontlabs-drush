@@ -26,82 +26,81 @@ define drush::make ($makefile,
                     )
 {
   Exec { path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/", "/usr/local/bin", "/usr/local/sbin" ] }
-  $args = ''
 
   if $concurrency {
-   $args = "${args} --concurrency=${concurrency}"
+    $cnc = "--concurrency=${concurrency}"
   }
 
   if $contrib_destination {
-    $args = "${args} --contrib-destination=${contrib_destination}"
+    $cd = "--contrib-destination=${contrib_destination}"
   }
 
   if $dev {
-    $args = "${args} --dev"
+    $d = "--dev"
   }
 
   if $download_mechanism {
-    $args = "${args} --download-mechanism=${download_mechanism}"
+    $dm = "--download-mechanism=${download_mechanism}"
   }
 
   if $force_complete {
-    $args = "${args} --force-complete"
+    $fc = "--force-complete"
   }
   if $ignore_checksums {
-    $args = "${args} --ignore-checksums"
+    $ic = "--ignore-checksums"
   }
   if $libraries {
-    $args = "${args} --librariries=$libraries"
+    $lib = "--librariries=$libraries"
   }
   if $make_update_default_url {
-    $args = "${args} --make-update-default-url=$make_update_default_url"
+    $mudu = "--make-update-default-url=$make_update_default_url"
   }
   if $md5 {
-    $args = "${args} --md5=$md5"
+    $m5 = "--md5=$md5"
   }
   if $no_cache {
-    $args = "${args} --no-cache"
+    $nca = "--no-cache"
   }
   if $no_clean {
-    $args = "${args} --no-clean"
+    $ncl = "--no-clean"
   }
   if $no_core {
-    $args = "${args} --no-core"
+    $nco = "--no-core"
   }
   if $no_gitinfofile {
-    $args = "${args} --no-gitinfofile"
+    $ngi = "--no-gitinfofile"
   }
   if $no_patch_txt {
-    $args = "${args} --no-patch-txt"
+    $npt = "--no-patch-txt"
   }
   if $prepare_install {
-    $args = "${args} --prepare-install"
+    $pi = "--prepare-install"
   }
   if $projects {
-    $args = "${args} --projects=$projects"
+    $proj = "--projects=$projects"
   }
   if $source {
-    $args = "${args} --source=$source"
+    $src = "--source=$source"
   }
   if $tar {
-    $args = "${args} --tar"
+    $tr = "--tar"
   }
   if $test {
-    $args = "${args} --test"
+    $tst = "--test"
   }
   if $translations {
-    $args = "${args} --translations=$translations"
+    $trans = "--translations=$translations"
   }
   if $version {
-    $args = "${args} --version"
+    $v = "--version"
   }
   if $working_copy {
-    $args = "${args} --working-copy"
+    $wc = "--working-copy"
   }
 
   # Run the make
   exec {"drush-make-${makefile}-${build_path}":
-    command => "drush make $makefile $build_path $args -y",
+    command => "drush make $makefile $build_path $cnc $cd $d $dm $fc $ic $lib $mudu $m5 $nca $ncl $ncl $nco $ngi $npt $pi $proj $src $tr $tst $trans $v $wc -y",
     onlyif => $onlyif,
     cwd => '/tmp',
   }

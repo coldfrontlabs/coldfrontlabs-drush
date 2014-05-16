@@ -11,65 +11,65 @@ define drush::si ($profile = undef,
                   $site_mail = undef,
                   $site_name = undef,
                   $sites_subdir = undef,
-                  $settings = undef,
+                  $settings = '',
                   $site_root,
                   $onlyif = true
                 )
 {
   Exec { path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/", "/usr/local/bin", "/usr/local/sbin" ] }
 
-  $args = "--root=$site_root"
+  $siteroot = "--root=$site_root"
 
   if $db_url {
-    $args = "${args} --db-url=${db_url}"
+    $dburl = "--db-url=${db_url}"
   }
 
   if $account_name {
-    $args = "${args} --account-name=${account_name}"
+    $accountname = "--account-name=${account_name}"
   }
 
   if $account_pass {
-    $args = "${args} --account-pass=${account_pass}"
+    $accountpass = "--account-pass=${account_pass}"
   }
 
   if $account_mail {
-    $args = "${args} --account-mail=${account_mail}"
+    $accountmail = "--account-mail=${account_mail}"
   }
 
   if $clean_url {
-    $args = "${args} --clean-url"
+    $cleanurl = "--clean-url"
   }
 
   if $db_prefix {
-    $args = "${args} --db-prefix=${db_prefix}"
+    $dbprefix = "--db-prefix=${db_prefix}"
   }
 
   if $db_su {
-    $args = "${args} --db-su=${db_su}"
+    $dbsu = "--db-su=${db_su}"
   }
 
   if $db_su_pw {
-    $args = "${args} --db-su-pw=${$db_su_pw}"
+    $dbsupw = "--db-su-pw=${$db_su_pw}"
   }
 
   if $locale {
-    $args = "${args} --locale=${locale}"
+    $lcl = "--locale=${locale}"
   }
 
   if $site_mail {
-    $args = "${args} --site-mail=${site_mail}"
+    $sitemail = "--site-mail=${site_mail}"
   }
 
   if $site_name {
-    $args = "${args} --site-name=${site_name}"
+    $sitename = "--site-name=${site_name}"
   }
 
   if $sites_subdir {
-    $args = "${args} --sites-subdir=${sites_subdir}"
+    $sitessubdir = "--sites-subdir=${sites_subdir}"
   }
 
   exec {"drush-si-${name}-${profile}":
-    command => "drush si $profile $settings $args -y",
+    command => "drush si $profile $settings $siteroot $dburl $accountname $accountpass $accountmail $cleanurl $dbprefix $dbsu $dbsupw $lcl $sitemail $sitename $sitessubdir -y",
     cwd     => $site_root,
     onlyif  => $onlyif
   }

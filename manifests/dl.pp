@@ -7,14 +7,12 @@ define drush::dl ($destination = undef,
 {
   Exec { path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/", "/usr/local/bin", "/usr/local/sbin" ] }
 
-  $args = ''
-
   if $destination {
-    $args = "${args} --destination=${destination}"
+    $dst = "--destination=${destination}"
   }
 
   if $source {
-    $args = "${args} --source=${source}"
+    $src = "--source=${source}"
   }
 
   if !$project_name {
@@ -22,15 +20,15 @@ define drush::dl ($destination = undef,
   }
 
   if $default_major {
-    $args = "${args} --default-major=${default_major}"
+    $dm = "--default-major=${default_major}"
   }
 
   if $drupal_project_rename {
-    $args = "${args} --drupal-project-rename=${drupal_project_rename}"
+    $dpr = "--drupal-project-rename=${drupal_project_rename}"
   }
 
   exec {"drush-dl-${name}":
-    command => "drush ${args} dl ${project_name} -y",
+    command => "drush dl $project_name $dst $src $dm $dpr -y",
     cwd     => $sitepath,
     onlyif => $onlyif
   }
