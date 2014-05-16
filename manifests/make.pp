@@ -1,5 +1,5 @@
 define drush::make ($makefile,
-                    $dir = '',
+                    $build_path = '',
                     $concurrency = undef,
                     $contrib_destination = undef,
                     $dev = undef,
@@ -21,7 +21,8 @@ define drush::make ($makefile,
                     $test = undef,
                     $translations = undef,
                     $version = undef,
-                    $working_copy = undef
+                    $working_copy = undef,
+                    $onlyif = true
                     )
 {
   $args = ''
@@ -99,6 +100,7 @@ define drush::make ($makefile,
 
   # Run the make
   exec {"drush-make-${makefile}-${dif}":
-    command => "drush make $makefile $dir $args -y",
+    command => "drush make $makefile $build_path $args -y",
+    onlyif => $onlyif
   }
 }
