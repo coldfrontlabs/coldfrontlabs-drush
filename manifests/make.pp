@@ -104,4 +104,14 @@ define drush::make ($makefile,
     onlyif => $onlyif,
     cwd => '/tmp',
   }
+
+  exec { "drush-make-rmdir-${makefile}-${build_path}":
+    command  => "rmdir ${build_path}",
+  }
+
+  if defined(Exec["drush-make-${makefile}-${build_path}"]) {
+    Exec["drush-make-rmdir-${makefile}-${build_path}"] {
+      before  => Exec["drush-make-${makefile}-${build_path}"],
+    }
+  }
 }
