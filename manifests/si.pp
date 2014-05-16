@@ -18,89 +18,58 @@ define drush::si ($profile = undef,
 {
   Exec { path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/", "/usr/local/bin", "/usr/local/sbin" ] }
 
+  $args = "--root=$site_root"
+
   if $db_url {
-    $dburl = "--db-url=${db_url}"
-  }
-  else {
-    $dburl = ""
+    $args = "${args} --db-url=${db_url}"
   }
 
   if $account_name {
-    $accountname = "--account-name=${account_name}"
-  }
-  else {
-    $accountname = ""
+    $args = "${args} --account-name=${account_name}"
   }
 
   if $account_pass {
-    $accountpass = "--account-pass=${account_pass}"
-  }
-  else {
-    $accountpass = ""
+    $args = "${args} --account-pass=${account_pass}"
   }
 
   if $account_mail {
-    $accountmail = "--account-mail=${account_mail}"
-  }
-  else {
-    $accountmail = ""
+    $args = "${args} --account-mail=${account_mail}"
   }
 
   if $clean_url {
-    $cleanurl = "--clean-url=1"
-  }
-  else {
-    $cleanurl = "--clean-url=0"
+    $args = "${args} --clean-url"
   }
 
   if $db_prefix {
-    $dbprefix = "--db-prefix=${db_prefix}"
-  }
-  else {
-    $dbprefix = ""
+    $args = "${args} --db-prefix=${db_prefix}"
   }
 
   if $db_su {
-    $dbsu = "--db-su=${db_su}"
-  }
-  else {
-    $dbsu = ""
+    $args = "${args} --db-su=${db_su}"
   }
 
   if $db_su_pw {
-    $dbsupw = "--db-su-pw=${$db_su_pw}"
+    $args = "${args} --db-su-pw=${$db_su_pw}"
   }
-  else {
-    $dbsupw = ""
-  }
+
   if $locale {
-    $lcl = "--locale=${locale}"
+    $args = "${args} --locale=${locale}"
   }
-  else {
-    $lcl = ""
-  }
+
   if $site_mail {
-    $sitemail = "--site-mail=${site_mail}"
-  }
-  else {
-    $sitemail = ""
+    $args = "${args} --site-mail=${site_mail}"
   }
 
   if $site_name {
-    $sitename = "--site-name=${site_name}"
+    $args = "${args} --site-name=${site_name}"
   }
-  else {
-    $sitename = ""
-  }
+
   if $sites_subdir {
-    $sitessubdir = "--sites-subdir=${sites_subdir}"
-  }
-  else {
-    $sitessubdir = ""
+    $args = "${args} --sites-subdir=${sites_subdir}"
   }
 
   exec {"drush-si-${name}-${profile}":
-    command => "drush si $profile $settings --root=$site_root $dburl $accountname $accountpass $accountmail $cleanurl $dbprefix $dbsu $dbsupw $lcl $sitemail $sitename $sitessubdir -y",
+    command => "drush si $profile $settings $args -y",
     cwd     => $site_root,
     onlyif  => $onlyif
   }
