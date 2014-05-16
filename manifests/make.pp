@@ -1,5 +1,5 @@
 define drush::make ($makefile,
-                    $build_path = '',
+                    $build_path = '.',
                     $concurrency = undef,
                     $contrib_destination = undef,
                     $dev = undef,
@@ -26,6 +26,8 @@ define drush::make ($makefile,
                     )
 {
   Exec { path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/", "/usr/local/bin", "/usr/local/sbin" ] }
+
+  $combined_onlyif = "test -e ${build_path} && ${onlyif}"
 
   if $concurrency {
     $cnc = "--concurrency=${concurrency}"
@@ -101,7 +103,7 @@ define drush::make ($makefile,
   # Run the make
   exec {"drush-make-${makefile}-${build_path}":
     command => "drush make $makefile $build_path $cnc $cd $d $dm $fc $ic $lib $mudu $m5 $nca $ncl $ncl $nco $ngi $npt $pi $proj $src $tr $tst $trans $v $wc -y",
-    onlyif => $onlyif,
+    onlyif => $combined_onlyif,
     cwd => '/tmp',
   }
 
