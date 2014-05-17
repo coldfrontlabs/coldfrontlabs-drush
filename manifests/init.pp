@@ -1,5 +1,5 @@
-Exec { path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/", "/usr/local/bin", "/usr/local/sbin" ] }
 class drush ($version = $::version) {
+  Exec { path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/", "/usr/local/bin", "/usr/local/sbin" ] }
   package { ['zip', 'unzip']: ensure => present}
 
   if $hasdrush == 'not-installed' {
