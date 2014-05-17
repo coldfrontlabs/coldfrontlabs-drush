@@ -102,7 +102,7 @@ define drush::make ($makefile,
 
   # Run the make
   exec {"drush-make-${makefile}-${build_path}":
-    command => "drush make $makefile $build_path $cnc $cd $d $dm $fc $ic $lib $mudu $m5 $nca $ncl $ncl $nco $ngi $npt $pi $proj $src $tr $tst $trans $v $wc -y",
+    command => "drush make $makefile $build_path $cnc $cd $d $dm $fc $ic $lib $mudu $m5 $nca $ncl $ncl $nco $ngi $npt $pi $proj $src $tr $tst $trans $v $wc -y --verbose",
     onlyif => $combined_onlyif,
     cwd => '/tmp',
     timeout => 0,  # Drush make can take a while. We disable timeouts for this reason
