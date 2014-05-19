@@ -23,7 +23,7 @@ class drush ($version = $::version) {
       require => File['/tmp/drushme/composer.json'],
     }->
     exec {'drush-env-refresh':
-      command => '. ~/.bashrc',
+      command => 'bash',
     }->
     exec {'drush-status-check':
       command => 'drush status',
