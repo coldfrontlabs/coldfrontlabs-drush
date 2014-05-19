@@ -26,6 +26,7 @@ define drush::make ($makefile,
                     )
 {
   Exec { path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/", "/usr/local/bin", "/usr/local/sbin" ] }
+  include drush
 
   $combined_onlyif = "test ! -e ${build_path} && ${onlyif}"
 

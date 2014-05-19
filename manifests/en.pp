@@ -1,4 +1,5 @@
 define drush::en () {
+  include drush
   exec {"drush-en-${name}":
     command     => "drush en ${name} -y",
     cwd         => $sitepath,
