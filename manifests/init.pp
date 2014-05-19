@@ -21,6 +21,12 @@ class drush ($version = $::version) {
       cmd => 'install',
       cwd => '/tmp/drushme',
       require => File['/tmp/drushme/composer.json'],
+    }->
+    exec {'drush-env-refresh':
+      command => 'source .bashrc',
+    }->
+    exec {'drush-status-check':
+      command => 'drush status',
     }
   }
 }
