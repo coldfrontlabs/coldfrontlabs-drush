@@ -107,7 +107,7 @@ define drush::make ($makefile,
     onlyif => $combined_onlyif,
     cwd => '/tmp',
     timeout => 0,  # Drush make can take a while. We disable timeouts for this reason
-    require => Exec['drush-status-check'],
+    #require => Exec['drush-status-check'],
   }
 
   exec { "drush-make-rmdir-${makefile}-${build_path}":
