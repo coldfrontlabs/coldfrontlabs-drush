@@ -32,7 +32,8 @@ define drush::dl ($destination = undef,
   exec {"drush-dl-${name}":
     command => "drush dl $project_name $dst $src $dm $dpr -y",
     cwd     => $sitepath,
-    onlyif => $onlyif
+    onlyif => $onlyif,
+    require => Exec['drush-status-check'],
   }
 
   if defined(Exec["drush-en-${name}"]) {
