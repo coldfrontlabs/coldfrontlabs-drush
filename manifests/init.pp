@@ -2,7 +2,7 @@ class drush ($version = $::version) {
   Exec { path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/", "/usr/local/bin", "/usr/local/sbin" ] }
   package { ['zip', 'unzip']: ensure => present}
 
-  if $hasdrush == 'not-installed' {
+#  if $hasdrush == 'not-installed' {
     include composer
 
     file {'/tmp/drushme':
@@ -28,5 +28,5 @@ class drush ($version = $::version) {
     exec {'drush-status-check':
       command => 'drush status',
     }
-  }
+#  }
 }
