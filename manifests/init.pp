@@ -1,24 +1,16 @@
 class drush ($version = $::version) {
-  Exec { path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/", "/usr/local/bin", "/usr/local/sbin", $::composer_home ] }
+  Exec { path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/", "/usr/local/bin", "/usr/local/sbin", "${::composer_home}/vendor/bin" ] }
   package { ['zip', 'unzip']: ensure => present}
 
-    include composer
+  composer::require {"drush_global":
+    project_name => 'drush/drush',
+    global => true,
+    version => "6.*",
+  }
 
-#    file {'/tmp/drushme':
-#      mode => '0755',
-#      ensure => 'directory'
-#    }
-
-    composer::require {"drush_global":
-      project_name => 'drush/drush',
-      global => true,
-      version => "6.*",
-    }
-#    ->
-#    exec {'drush-env-refresh':
-#      command => 'bash',
-#    }->
-#    exec {'drush-status-check':
-#      command => 'drush status',
-#    }
+  file {"/usr/bin/drush":
+    ensure => 'link',
+    target => "${::composer_home}/vendor/bin/drush",
+    require => Composer::require['drupal_global'],
+  }
 }
