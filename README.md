@@ -1,4 +1,4 @@
-Coldfront Drush
+Drush Puppet
 ===============
 
 Manages the installation and configuration of Drush. This includes
