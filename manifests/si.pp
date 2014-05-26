@@ -18,7 +18,7 @@ define drush::si ($profile = undef,
 {
   include drush
 
-  Exec { path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/", "/usr/local/bin", "/usr/local/sbin" ] }
+  Exec { path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/", "/usr/local/bin", "/usr/local/sbin", $::composer_home ] }
 
   $siteroot = "--root=$site_root"
 

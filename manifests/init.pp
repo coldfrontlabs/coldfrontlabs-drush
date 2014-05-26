@@ -1,5 +1,5 @@
 class drush ($version = $::version) {
-  Exec { path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/", "/usr/local/bin", "/usr/local/sbin" ] }
+  Exec { path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/", "/usr/local/bin", "/usr/local/sbin", $::composer_home ] }
   package { ['zip', 'unzip']: ensure => present}
 
     include composer

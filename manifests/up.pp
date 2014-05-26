@@ -1,5 +1,7 @@
 define drush::up () {
   include drush
+  Exec { path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/", "/usr/local/bin", "/usr/local/sbin", $::composer_home ] }
+
   drush::en {'update':}
 
   ->drush::cc {"drush-cc-for-up-${name}":args => 'drush'}
