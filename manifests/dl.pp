@@ -33,6 +33,7 @@ define drush::dl ($destination = undef,
     command => "drush dl $project_name $dst $src $dm $dpr -y",
     cwd     => $sitepath,
     onlyif => $onlyif,
+    require => Composer::Require['drush_global'],
     #require => Exec['drush-status-check'],
   }
 

@@ -75,6 +75,6 @@ define drush::si ($profile = undef,
     cwd     => $site_root,
     onlyif  => $onlyif,
     timeout => 0,
-    require => File["${$site_root}"]
+    require => [File["${$site_root}"], Composer::Require['drush_global']]
   }
 }

@@ -106,6 +106,7 @@ define drush::make ($makefile,
     command => "drush make $makefile $build_path $cnc $cd $d $dm $fc $ic $lib $mudu $m5 $nca $ncl $ncl $nco $ngi $npt $pi $proj $src $tr $tst $trans $v $wc -y",
     onlyif => $combined_onlyif,
     cwd => '/tmp',
+    require => Composer::Require['drush_global']
     timeout => 0,  # Drush make can take a while. We disable timeouts for this reason
     #require => Exec['drush-status-check'],
   }
