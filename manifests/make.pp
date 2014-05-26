@@ -28,7 +28,7 @@ define drush::make ($makefile,
   Exec { path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/", "/usr/local/bin", "/usr/local/sbin" ] }
 
 
-  $combined_onlyif = "test ! -e ${build_path} && ${onlyif}"
+  #$combined_onlyif = "test ! -e ${build_path} && ${onlyif}"
 
   if $concurrency {
     $cnc = "--concurrency=${concurrency}"
@@ -101,19 +101,12 @@ define drush::make ($makefile,
     $wc = "--working-copy"
   }
 
-  # Run the make
   exec {"drush-make-${makefile}-${build_path}":
     command => "drush make $makefile $build_path $cnc $cd $d $dm $fc $ic $lib $mudu $m5 $nca $ncl $ncl $nco $ngi $npt $pi $proj $src $tr $tst $trans $v $wc -y",
-    onlyif => $combined_onlyif,
     cwd => '/tmp',
-    require => Composer::Require['drush_global'],
+    require => Exec['drush_status_check'],
     timeout => 0,  # Drush make can take a while. We disable timeouts for this reason
-  }
-
-  exec { "drush-make-rmdir-${makefile}-${build_path}":
-    command  => "rmdir ${build_path} &> /dev/null || true",
-    # Check if the path is empty or if the directory exists that it is empty
-    onlyif => "test -d ${build_path} && test -z `ls -A ${build_path}` || test ! -e ${build_path}"
+    onlyif => ["puppet:///modules/drush/drush_make_prep.sh ${buid_path}, ${onlyif}"]
   }
 
   # Since drush make won't overwrite an existing directory, we remove an empty directory if it's there already (say for instance puppet/apache already provisioned it)
