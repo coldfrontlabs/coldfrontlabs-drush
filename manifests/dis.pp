@@ -6,5 +6,6 @@ define drush::dis () {
     command     => "drush dis ${name} -y",
     cwd         => $sitepath,
 #    onlyif      => "drush -r ${sitepath} pmi ${name} | grep Status | grep disabled",
+    require => Exec['drush_status_check'],
   }
 }

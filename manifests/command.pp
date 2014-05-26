@@ -7,5 +7,6 @@ define drush::command ($args = '') {
   ->exec {"drush-command-${name}":
     command => "drush ${name} $args -y",
     cwd     => $sitepath,
+    require => Exec['drush_status_check'],
   }
 }

@@ -6,5 +6,6 @@ define drush::uninstall () {
   ->exec {"drush-uninstall-${name}":
     command     => "drush pm-uninstall ${name} -y",
     cwd         => $sitepath,
+    require     => Exec['drush_status_check'],
   }
 }

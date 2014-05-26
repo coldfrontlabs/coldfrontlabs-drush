@@ -6,6 +6,6 @@ define drush::en () {
     command     => "drush en ${name} -y",
     cwd         => $sitepath,
 #    onlyif      => "drush -r ${sitepath} pmi ${name} | grep Status | grep enabled",
-    require => Composer::Require['drush_global'],
+    require => Exec['drush_status_check'],
   }
 }

@@ -5,5 +5,6 @@ define drush::cc ($args = 'all') {
   exec {"drush-cc-${name}":
     command => "drush cc $args -y",
     cwd     => $sitepath,
+    require => Exec['drush_status_check'],
   }
 }
