@@ -1,4 +1,4 @@
-class drush ($version = $::version) {
+class drush ($version = '6.*') {
   Exec { path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/", "/usr/local/bin", "/usr/local/sbin" ] }
   package { ['zip', 'unzip']: ensure => present}
 
@@ -14,7 +14,7 @@ class drush ($version = $::version) {
   composer::require {"drush_global":
     project_name => 'drush/drush',
     global => true,
-    version => "6.*",
+    version => "${version}",
     require => Class['composer'],
   }
 
