@@ -6,7 +6,7 @@ define drush::dl ($destination = undef,
                   $onlyif = 'test !'
                   )
 {
-  Exec { path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/", "/usr/local/bin", "/usr/local/sbin", $::composer_home ] }
+  Exec { path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/", "/usr/local/bin", "/usr/local/sbin" ] }
   include drush
 
   if $destination {
