@@ -26,7 +26,7 @@ define drush::make ($makefile,
                     )
 {
   Exec { path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/", "/usr/local/bin", "/usr/local/sbin" ] }
-  
+
 
   $combined_onlyif = "test ! -e ${build_path} && ${onlyif}"
 
@@ -108,7 +108,6 @@ define drush::make ($makefile,
     cwd => '/tmp',
     require => Composer::Require['drush_global'],
     timeout => 0,  # Drush make can take a while. We disable timeouts for this reason
-    #require => Exec['drush-status-check'],
   }
 
   exec { "drush-make-rmdir-${makefile}-${build_path}":

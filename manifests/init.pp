@@ -18,14 +18,14 @@ class drush ($version = '6.*', $drush_cmd = '/usr/bin/drush', $composer_home = '
     version => "${version}",
     require => Class['composer'],
   }
-  -> exec {'drush_status_check':
-    command => 'drush status',
-    require => Composer::Require['drush_global'],
-  }
-
+  ->
   file {"${drush_cmd}":
     ensure => 'link',
     target => "${composer_home}/vendor/bin/drush",
     require => Composer::Require['drush_global'],
+  }
+  -> exec {'drush_status_check':
+    command => 'drush status',
+    require => File["${drush_cmd}"],
   }
 }
