@@ -7,7 +7,7 @@ define drush::dl ($destination = undef,
                   )
 {
   Exec { path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/", "/usr/local/bin", "/usr/local/sbin" ] }
-  include drush
+
 
   if $destination {
     $dst = "--destination=${destination}"
