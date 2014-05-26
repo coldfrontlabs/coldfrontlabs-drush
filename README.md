@@ -21,6 +21,8 @@ include drush
 
 ````puppet
 class {'drush':
-  version => '6.*'  # Version options include specific values like '6.2.0', latest stable as '6.*' or dev with 'dev-master'
+  version => '6.*',  # Version options include specific values like '6.2.0', latest stable as '6.*' or dev with 'dev-master'
+  drush_cmd => '/usr/bin/drush', # Directory to place the drush executable
+  composer_home => '/usr/local/share/composer', # Directory where composer will install drush
 }
 ````
