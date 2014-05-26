@@ -106,6 +106,6 @@ define drush::make ($makefile,
     cwd => '/tmp',
     require => Exec['drush_status_check'],
     timeout => 0,  # Drush make can take a while. We disable timeouts for this reason
-    onlyif => ["puppet:///modules/drush/drush_make_prep.sh ${buid_path}, ${onlyif}"]
+    onlyif => ["if [ -d ${build_path} && -z `ls -A ${build_path}` || ! -e ${build_path} ] ; then  rmdir ${build_path} &> /dev/null ; exit 0 ; fi ; exit 1", ${onlyif}]
   }
 }
