@@ -11,6 +11,6 @@ class drush ($version = $::version) {
   file {"/usr/bin/drush":
     ensure => 'link',
     target => "${::composer_home}/vendor/bin/drush",
-    require => Composer::require['drupal_global'],
+    require => Composer::Require['drupal_global'],
   }
 }
