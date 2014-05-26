@@ -108,11 +108,4 @@ define drush::make ($makefile,
     timeout => 0,  # Drush make can take a while. We disable timeouts for this reason
     onlyif => ["puppet:///modules/drush/drush_make_prep.sh ${buid_path}, ${onlyif}"]
   }
-
-  # Since drush make won't overwrite an existing directory, we remove an empty directory if it's there already (say for instance puppet/apache already provisioned it)
-  if defined(Exec["drush-make-${makefile}-${build_path}"]) {
-    Exec["drush-make-rmdir-${makefile}-${build_path}"] {
-      before  => Exec["drush-make-${makefile}-${build_path}"],
-    }
-  }
 }
