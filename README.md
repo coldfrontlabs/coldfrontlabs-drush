@@ -53,7 +53,7 @@ class {'drush':
 ````
 
 #### Running commands
-````
+````puppet
 drush::si {"drush-si-${name}":
     profile => $profile,
     db_url => $db_url,
