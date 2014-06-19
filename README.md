@@ -7,6 +7,11 @@ Features
 --------
 
 - Drush cli installation
+- Execute core drush commands from puppet
+    - site-install
+    - pm-enable
+    - pm-download
+    - etc...
 - Enables auto-complete configuration (see [drush.complete.sh](https://github.com/drush-ops/drush/blob/master/drush.complete.sh))
 
 Roadmap Features
