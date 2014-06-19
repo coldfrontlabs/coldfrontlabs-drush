@@ -1,6 +1,6 @@
 class drush ($version = '6.*', $drush_cmd = '/usr/bin/drush', $composer_home = '/usr/local/share/composer') {
   Exec { path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/", "/usr/local/bin", "/usr/local/sbin" ] }
-  package { ['zip', 'unzip', 'gzip', 'tar']: ensure => present}
+  package { ['zip', 'unzip', 'gzip', 'tar', 'bash-completion']: ensure => present}
 
   file {"${composer_home}":
     ensure => 'directory',
@@ -34,7 +34,7 @@ class drush ($version = '6.*', $drush_cmd = '/usr/bin/drush', $composer_home = '
     owner => 'root',
     target => "${composer_home}/vendor/drush/drush/drush.complete.sh",
     require => [
-      Package['bash'],
+      Package['bash-completion'],
       Exec['drush_status_check'],
     ],
   }
