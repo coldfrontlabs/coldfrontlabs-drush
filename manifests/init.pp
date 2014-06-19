@@ -32,8 +32,6 @@ class drush ($version = '6.*', $drush_cmd = '/usr/bin/drush', $composer_home = '
   file {'/etc/bash_completion.d/drush.complete.sh':
     ensure => 'link',
     owner => 'root',
-    group => 'root',
-    mode => '0644',
     target => "${composer_home}/vendor/drush/drush/drush.complete.sh",
     require => [
       Package['bash'],
