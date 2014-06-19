@@ -23,6 +23,13 @@ class drush ($version = '6.*', $drush_cmd = '/usr/bin/drush', $composer_home = '
     ensure => 'link',
     target => "${composer_home}/vendor/bin/drush",
     require => Composer::Require['drush_global'],
+  }->
+  file {"/etc/drush.d":
+    ensure => 'directory',
+    owner => 'root',
+    group => 'root',
+    mode => '0755',
+    require => File["${drush_cmd}"],
   }
   -> exec {'drush_status_check':
     command => 'drush status',
