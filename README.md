@@ -1,11 +1,21 @@
 Drush Puppet
 ===============
 
-Manages the installation and configuration of Drush. This includes
+Manages the installation and configuration of Drush using Composer.
 
-- Site aliases
-- Policy files
-- drush cli configuration
+Features
+--------
+
+- Drush cli installation
+- Enables auto-complete configuration (see [drush.complete.sh](https://github.com/drush-ops/drush/blob/master/drush.complete.sh))
+
+Roadmap Features
+----------------
+
+- Site aliases configuration via Hiera
+- Policy files via Hiera
+- drush.ini configuration
+- drushrc.php configuration
 
 Dependencies
 ------------
@@ -13,6 +23,11 @@ Dependencies
 Since Drush requires composer to be installed, this module depends on our fork of [tPl0ch/composer](https://forge.puppetlabs.com/tPl0ch/composer) to install drush. Once v2 is released with "global" and "require" support our fork of this puppet module will be deprecated.
 
 - [Composer Puppet Module](https://github.com/coldfrontlabs/puppet-composer)
+
+Testing
+-------
+
+This module is primarily tested on CentOS. If someone wants to test and commit patches for other Linux distros please do so.
 
 Sample Configuration
 --------------------
