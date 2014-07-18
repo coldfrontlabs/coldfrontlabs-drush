@@ -101,7 +101,9 @@ define drush::make ($makefile,
     $wc = "--working-copy"
   }
 
-  file {"/tmp/drush_make_prep-${makefile}-${build_path}.sh":
+  $filehash = md5("${makefile}-${build_path}")
+
+  file {"/tmp/drush_make_prep-${filehash}.sh":
     ensure => 'present',
     source => ["puppet:///modules/drush/drush_make_prep.sh"],
     mode => 0755,
@@ -110,8 +112,8 @@ define drush::make ($makefile,
   exec {"drush-make-${makefile}-${build_path}":
     command => "drush make $makefile $build_path $cnc $cd $d $dm $fc $ic $lib $mudu $m5 $nca $ncl $ncl $nco $ngi $npt $pi $proj $src $tr $tst $trans $v $wc -y",
     cwd => '/tmp',
-    require => [Exec['drush_status_check'], File["/tmp/drush_make_prep-${makefile}-${build_path}.sh"]],
+    require => [Exec['drush_status_check'], File["/tmp/drush_make_prep-${filehash}.sh"]],
     timeout => 0,  # Drush make can take a while. We disable timeouts for this reason
-    onlyif => ["/tmp/drush_make_prep-${makefile}-${build_path}.sh ${build_path}", "${onlyif}"]
+    onlyif => ["/tmp/drush_make_prep-${filehash}.sh ${build_path}", "${onlyif}"]
   }
 }
