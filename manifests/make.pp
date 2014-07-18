@@ -101,16 +101,17 @@ define drush::make ($makefile,
     $wc = "--working-copy"
   }
 
-  file {'/tmp/drush_make_prep.sh':
+  file {"/tmp/drush_make_prep-${makefile}-${build_path}.sh":
     ensure => 'present',
     source => ["puppet:///modules/drush/drush_make_prep.sh"],
     mode => 0755,
   }
+
   exec {"drush-make-${makefile}-${build_path}":
     command => "drush make $makefile $build_path $cnc $cd $d $dm $fc $ic $lib $mudu $m5 $nca $ncl $ncl $nco $ngi $npt $pi $proj $src $tr $tst $trans $v $wc -y",
     cwd => '/tmp',
-    require => [Exec['drush_status_check'], File['/tmp/drush_make_prep.sh']],
+    require => [Exec['drush_status_check'], File["/tmp/drush_make_prep-${makefile}-${build_path}.sh"]],
     timeout => 0,  # Drush make can take a while. We disable timeouts for this reason
-    onlyif => ["/tmp/drush_make_prep.sh ${build_path}", "${onlyif}"]
+    onlyif => ["/tmp/drush_make_prep-${makefile}-${build_path}.sh ${build_path}", "${onlyif}"]
   }
 }
