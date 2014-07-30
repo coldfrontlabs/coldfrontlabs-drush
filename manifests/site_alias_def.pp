@@ -6,7 +6,7 @@ define drush::site_alias_def($group, $uri = undef, $remote_user = undef, $remote
     content => template('drush/aliases.drushrc.erb'),
     require => [
       File['/etc/drush'],
-      Drush::Site_alias_group["drush-site_alias_group-${group}"],
+      Drush::Site_alias_group["${group}"],
     ]
   }
 }
