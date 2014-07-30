@@ -1,5 +1,5 @@
 # Add an instance of an *.aliases.drushrc.php file
-define drush::site_alias_file($aliases, $uri = undef, $remote_host = undef, $remote_user = undef, $os = undef) {
+define drush::site_alias_file($name, $uri = undef, $remote_user = undef, $remote_host = undef, $os = undef, $group = undef) {
 
   file {"/etc/drush/${name}.aliases.drushrc.php":
     ensure => 'file',
