@@ -3,7 +3,7 @@ define drush::site_alias_def($name, $group, $uri = undef, $remote_user = undef, 
 
   concat::fragment {"drush-site-alias-def-{$name}-{$group}":
     target => "/etc/drush/${group}.aliases.drushrc.php",
-    content => template('drush/aliases.drushrc.php.erb'),
+    content => template('drush/aliases.drushrc.erb'),
     require => [
       File['/etc/drush'],
       Drush::Site_alias_group["drush-site_alias_group-${group}"],
