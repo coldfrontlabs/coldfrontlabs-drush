@@ -65,3 +65,13 @@
 #       ),
 #     ),
 #  );
+
+<% @aliases.each do |als| -%>
+$aliases['<%= als %>'] = array(
+  <% if als.uri != "" %>'uri' => '<%= als.uri %>',<% end %>
+  <% if als.db_url != "" %>'db-url' => '<%= als.db_url %>',<% end %>
+  <% if als.remote_host != "" %>'remote-host' => '<%= als.remote_host %>',<% end %>
+  <% if als.remote_user != "" %>'remote-user' => '<%= als.remote_user %>',<% end %>
+  <% if als.os != "" %>'os' => '<%= als.os %>',<% end %>
+);
+<% end -%>
