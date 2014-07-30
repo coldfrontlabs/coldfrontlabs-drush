@@ -9,3 +9,4 @@ project_page 'https://github.com/coldfrontlabs/coldfrontlabs-drush'
 
 dependency 'tPl0ch/composer', '>= 1.2.1'
 dependency 'stahnma/epel', '>= 0.0.6'
+dependency 'puppetlabs/concat', '>= 1.0.4'

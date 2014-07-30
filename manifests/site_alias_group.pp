@@ -6,7 +6,7 @@ define drush::site_alias_file($name) {
     owner => 'root',
     group => 'root',
     mode => '0644',
-    content => template('drush/aliases.drushrc.php.erb'),
+    content => template('drush/php.erb'),
     require => [
       File['/etc/drush'],
     ]
