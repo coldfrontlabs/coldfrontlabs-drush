@@ -20,3 +20,10 @@ define drush::site_alias_group($name, $aliases = undef, $description = undef) {
     ]
   }
 }
+
+#  <% if uri != "" %>'uri' => '<%= uri %>',<% end %>
+#  <% if db_url != "" %>'db-url' => '<%= db_url %>',<% end %>
+#  <% if remote_host != "" %>'remote-host' => '<%= remote_host %>',<% end %>
+#  <% if remote_user != "" %>'remote-user' => '<%= remote_user %>',<% end %>
+#  <% if os != "" %>'os' => '<%= os %>',<% end %>
+#
