@@ -26,7 +26,7 @@ class drush ($version = '6.*', $drush_cmd = '/usr/bin/drush', $composer_home = '
     target => "${composer_home}/vendor/bin/drush",
     require => Composer::Require['drush_global'],
   }->
-  file {"/etc/drush.d":
+  file {"/etc/drush":
     ensure => 'directory',
     owner => 'root',
     group => 'root',
