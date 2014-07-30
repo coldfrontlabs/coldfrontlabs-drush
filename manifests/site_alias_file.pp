@@ -6,7 +6,7 @@ define drush::site_alias_file($name, $uri = undef, $remote_user = undef, $remote
     owner => 'root',
     group => 'root',
     mode => '0644',
-    content => tempalte('drush/aliases.drushrc.php.erb'),
+    content => template('drush/aliases.drushrc.php.erb'),
     require => [
       File['/etc/drush'],
     ]
