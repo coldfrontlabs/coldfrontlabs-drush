@@ -45,4 +45,7 @@ class drush ($version = '6.*', $drush_cmd = '/usr/bin/drush', $composer_home = '
       Exec['drush_status_check'],
     ],
   }
+
+  $aliases = hiera_hash('drush::aliases', {})
+  create_resources(drush::site_alias_file, $aliases)
 }

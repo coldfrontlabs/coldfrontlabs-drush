@@ -76,9 +76,9 @@ define drush::sa ($site_root,
 }
 
 # Add an instance of an *.aliases.drushrc.php file
-define drush::site_alias_entry($group, $aliases, $os = undef) {
+define drush::site_alias_file($aliases) {
 
-  file {"/etc/drush.d/${group}.aliases.drushrc.php"} {
+  file {"/etc/drush.d/${name}.aliases.drushrc.php"} {
     ensure => 'file',
     owner => 'root',
     group => 'root',
