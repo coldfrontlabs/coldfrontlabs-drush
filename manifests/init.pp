@@ -48,6 +48,6 @@ class drush ($version = '6.*', $drush_cmd = '/usr/bin/drush', $composer_home = '
     ],
   }
 
-  $aliases = hiera_hash('drush::aliases', {})
+  $aliases = hiera_hash('drush::site_alias_file', {})
   create_resources(drush::site_alias_file, $aliases)
 }
