@@ -1,18 +1,25 @@
 define drush::sa ($site_root,
                   $site = undef,
                   $alias_name = undef,
-                  $field_labels = undef,
+                  $field_labels = false,
                   $fields = undef,
                   $format = undef,
-                  $full = undef,
-                  $local = undef,
-                  $no_db = undef,
-                  $pipe = undef,
-                  $with_db = undef,
-                  $with_db_url = undef,
-                  $with_optional = undef,
+                  $full = false,
+                  $local = false,
+                  $no_db = false,
+                  $pipe = false,
+                  $with_db = false,
+                  $with_db_url = false,
+                  $with_optional = false,
 ) {
-
+  validate_bool($field_labels)
+  validate_bool($full)
+  validate_bool($local)
+  validate_bool($no_db)
+  validate_bool($pipe)
+  validate_bool($with_db)
+  validate_bool($with_db_url)
+  validate_bool($with_optional)
 
   Exec { path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/", "/usr/local/bin", "/usr/local/sbin" ] }
 
