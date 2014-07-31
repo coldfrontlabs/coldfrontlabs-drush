@@ -2,30 +2,45 @@ define drush::make ($makefile,
                     $build_path = '.',
                     $concurrency = undef,
                     $contrib_destination = undef,
-                    $dev = undef,
+                    $dev = false,
                     $download_mechanism = undef,
-                    $force_complete = undef,
-                    $ignore_checksums = undef,
+                    $force_complete = false,
+                    $ignore_checksums = false,
                     $libraries = undef,
                     $make_update_default_url = undef,
                     $md5 = undef,
-                    $no_cache = undef,
-                    $no_clean = undef,
-                    $no_core = undef,
-                    $no_gitinfofile = undef,
-                    $no_patch_txt = undef,
-                    $prepare_install = undef,
+                    $no_cache = false,
+                    $no_clean = false,
+                    $no_core = false,
+                    $no_gitinfofile = false,
+                    $no_patch_txt = false,
+                    $prepare_install = false,
                     $projects = undef,
                     $source = undef,
-                    $tar = undef,
-                    $test = undef,
+                    $tar = false,
+                    $test = false,
                     $translations = undef,
-                    $version = undef,
-                    $working_copy = undef,
+                    $version = false,
+                    $working_copy = false,
                     $onlyif = 'test !'
                     )
 {
   Exec { path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/", "/usr/local/bin", "/usr/local/sbin" ] }
+
+  # Check boolean variables
+  validate_bool($dev)
+  validate_bool($force_complete)
+  validate_bool($ignore_checksums)
+  validate_bool($no_cache)
+  validate_bool($no_clean)
+  validate_bool($no_core)
+  validate_bool($no_gitinfofile)
+  validate_bool($no_patch_txt)
+  validate_bool($prepare_install)
+  validate_bool($tar)
+  validate_bool($test)
+  validate_bool($version)
+  validate_bool($working_copy)
 
 
   #$combined_onlyif = "test ! -e ${build_path} && ${onlyif}"
