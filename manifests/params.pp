@@ -22,7 +22,7 @@ class drush::params {
     $composer_home = '/usr/local/share/composer'
     $drush_cmd = '/usr/bin/drush'
     case $::operatingsystemmajrelease {
-      case '7': {
+      '7': {
 
       }
       default: {
