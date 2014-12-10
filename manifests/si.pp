@@ -18,6 +18,7 @@ define drush::si ($profile = undef,
                 )
 {
 
+	validate_absolute_path($site_root)
 
   Exec { path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/", "/usr/local/bin", "/usr/local/sbin" ] }
 

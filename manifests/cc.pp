@@ -5,8 +5,9 @@ define drush::cc ($cache = 'all',
 
   Exec { path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/", "/usr/local/bin", "/usr/local/sbin" ] }
 
-  if $site_root {
-    $siteroot = "--root=$site_root"
+	# Build the arguments for the command.
+	if validate_absolute_path($site_root) {
+    $siteroot = "--root=${site_root}"
   }
 
   exec {"drush-cc-${name}":

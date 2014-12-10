@@ -8,7 +8,7 @@ description 'Install Drush and execute Drush commands with Puppet.'
 project_page 'https://github.com/coldfrontlabs/coldfrontlabs-drush'
 
 dependency 'tPl0ch/composer', '>= 1.2.1'
-dependency 'stahnma/epel', '>= 0.0.6'
+dependency 'stahnma/epel', '>= 1.0.1'
 dependency 'puppetlabs/concat', '>= 1.0.4'
 dependency 'puppetlabs/stdlib', '>= 4.3.2'
 dependency 'puppetlabs/git', '>= 0.2.0'

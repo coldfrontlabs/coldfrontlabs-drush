@@ -29,6 +29,12 @@ define drush::sql_sync ( $source,
                          $onlyif = 'test !'
                 )
 {
+  validate_bool($create_db)
+  validate_bool($no_cache)
+  validate_bool($no_dump)
+  validate_bool($no_ordered_dump)
+  validate_bool($sanitize)
+  validate_bool($temp)
 
   Exec { path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/", "/usr/local/bin", "/usr/local/sbin" ] }
 

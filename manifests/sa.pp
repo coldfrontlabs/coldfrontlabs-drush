@@ -20,8 +20,11 @@ define drush::sa ($site_root,
   validate_bool($with_db)
   validate_bool($with_db_url)
   validate_bool($with_optional)
+	validate_absolute_path($site_root)
 
   Exec { path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/", "/usr/local/bin", "/usr/local/sbin" ] }
+
+	# Build the arguments for the command.
 
   $siteroot = "--root=$site_root"
 
