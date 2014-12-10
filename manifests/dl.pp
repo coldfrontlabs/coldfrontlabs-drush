@@ -3,6 +3,7 @@ define drush::dl ($project_name = undef,
                   $source = undef,
                   $default_major = undef,
                   $drupal_project_rename = undef,
+                  $uri = undef,
                   $onlyif = 'test !',
                   $site_root = undef
                   )
@@ -13,6 +14,10 @@ define drush::dl ($project_name = undef,
 	if $site_root {
     validate_absolute_path($site_root)
     $siteroot = "--root=${site_root}"
+  }
+
+	if $uri {
+    $u = "--l=${uri}"
   }
 
   if $destination {
@@ -36,7 +41,7 @@ define drush::dl ($project_name = undef,
   }
 
   exec {"drush-dl-${name}":
-    command => "drush dl $project_name $dst $src $dm $dpr $siteroot -y",
+    command => "drush dl $project_name $dst $src $dm $dpr $siteroot $u -y",
     cwd     => $sitepath,
     onlyif => $onlyif,
     require => Exec['drush_status_check'],
