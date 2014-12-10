@@ -1,13 +1,19 @@
-define drush::dl ($destination = undef,
+define drush::dl ($project_name = undef,
+                  $destination = undef,
                   $source = undef,
-                  $project_name = undef,
                   $default_major = undef,
                   $drupal_project_rename = undef,
-                  $onlyif = 'test !'
+                  $onlyif = 'test !',
+                  $site_root = undef
                   )
 {
   Exec { path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/", "/usr/local/bin", "/usr/local/sbin" ] }
 
+	# Build the arguments for the command.
+	if $site_root {
+    validate_absolute_path($site_root)
+    $siteroot = "--root=${site_root}"
+  }
 
   if $destination {
     $dst = "--destination=${destination}"
@@ -30,7 +36,7 @@ define drush::dl ($destination = undef,
   }
 
   exec {"drush-dl-${name}":
-    command => "drush dl $project_name $dst $src $dm $dpr -y",
+    command => "drush dl $project_name $dst $src $dm $dpr $siteroot -y",
     cwd     => $sitepath,
     onlyif => $onlyif,
     require => Exec['drush_status_check'],

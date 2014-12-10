@@ -1,7 +1,7 @@
-define drush::en ($project,
-                   $site_root = undef,
-                   $uri = undef
-                  )
+define drush::en ($project_name = undef,
+                  $site_root = undef,
+                  $uri = undef
+                 )
 {
 
   Exec { path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/", "/usr/local/bin", "/usr/local/sbin" ] }
@@ -12,13 +12,17 @@ define drush::en ($project,
     $siteroot = "--root=${site_root}"
   }
 
+  if !$project_name {
+    $project_name = $name
+  }
+
 	# Build the arguments to the command.
 	if $uri {
     $u = "--l=${uri}"
   }
 
   exec {"drush-en-${name}":
-    command     => "drush en $project $u $siteroot -y",
+    command     => "drush en $project_name $u $siteroot -y",
     # @todo add a check here that the module is not enabled. That way
     # puppet doesn't constantly run drush en and clear the drupal cache
     require => Exec['drush_status_check'],

@@ -1,4 +1,4 @@
-define drush::dis ($project,
+define drush::dis ($project_name = undef,
                    $site_root = undef,
                    $uri = undef
                   )
@@ -12,13 +12,17 @@ define drush::dis ($project,
     $siteroot = "--root=${site_root}"
   }
 
+  if !$project_name {
+    $project_name = $name
+  }
+
 	# Build the arguments to the command.
 	if $uri {
     $u = "--l=${uri}"
   }
 
   exec {"drush-dis-${name}":
-    command     => "drush dis $project $u $siteroot -y",
+    command     => "drush dis $project_name $u $siteroot -y",
     # @todo add a check here that the module is enabled. That way
     # puppet doesn't constantly run drush dis and clear the drupal cache
     require => Exec['drush_status_check'],
