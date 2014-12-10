@@ -7,7 +7,8 @@ define drush::dis ($project,
   Exec { path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/", "/usr/local/bin", "/usr/local/sbin" ] }
 
 	# Build the arguments for the command.
-	if validate_absolute_path($site_root) {
+	if $site_root {
+    validate_absolute_path($site_root)
     $siteroot = "--root=${site_root}"
   }
 
@@ -16,11 +17,8 @@ define drush::dis ($project,
     $u = "--l=${uri}"
   }
 
-
   exec {"drush-dis-${name}":
-    command     => "drush dis ${name} -y",
-    cwd         => $sitepath,
-#    onlyif      => "drush -r ${sitepath} pmi ${name} | grep Status | grep disabled",
+    command     => "drush dis $project $u $siteroot -y",
     require => Exec['drush_status_check'],
   }
 }
