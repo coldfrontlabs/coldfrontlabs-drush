@@ -1,6 +1,7 @@
 define drush::en ($project_name = undef,
+                  $uri = undef,
                   $site_root = undef,
-                  $uri = undef
+                  $onlyif = 'test !',
                  )
 {
 
@@ -23,6 +24,7 @@ define drush::en ($project_name = undef,
 
   exec {"drush-en-${name}":
     command     => "drush en $project_name $u $siteroot -y",
+    onlyif => $onlyif,
     # @todo add a check here that the module is not enabled. That way
     # puppet doesn't constantly run drush en and clear the drupal cache
     require => Exec['drush_status_check'],
