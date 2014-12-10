@@ -19,6 +19,8 @@ define drush::dis ($project,
 
   exec {"drush-dis-${name}":
     command     => "drush dis $project $u $siteroot -y",
+    # @todo add a check here that the module is enabled. That way
+    # puppet doesn't constantly run drush dis and clear the drupal cache
     require => Exec['drush_status_check'],
   }
 }

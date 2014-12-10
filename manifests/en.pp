@@ -19,6 +19,8 @@ define drush::en ($project,
 
   exec {"drush-en-${name}":
     command     => "drush en $project $u $siteroot -y",
+    # @todo add a check here that the module is not enabled. That way
+    # puppet doesn't constantly run drush en and clear the drupal cache
     require => Exec['drush_status_check'],
   }
 }
