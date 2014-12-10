@@ -1,3 +1,4 @@
+# Drush Site Install
 define drush::si ($profile = undef,
                   $db_url = undef,
                   $account_name = undef,
@@ -11,7 +12,7 @@ define drush::si ($profile = undef,
                   $site_mail = undef,
                   $site_name = undef,
                   $sites_subdir = undef,
-                  $settings = '',
+                  $settings = '', # What is this used for?
                   $site_root,
                   $onlyif = 'test !'
                 )

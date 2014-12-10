@@ -1,10 +1,16 @@
-define drush::cc ($args = 'all') {
+define drush::cc ($cache = 'all',
+                  $site_root = undef
+                 )
+{
 
   Exec { path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/", "/usr/local/bin", "/usr/local/sbin" ] }
 
+  if $site_root {
+    $siteroot = "--root=$site_root"
+  }
+
   exec {"drush-cc-${name}":
-    command => "drush cc $args -y",
-    cwd     => $sitepath,
+    command => "drush cc $cache $siteroot -y",
     require => Exec['drush_status_check'],
   }
 }
