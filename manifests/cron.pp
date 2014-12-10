@@ -1,4 +1,8 @@
-define drush::cron ($site_root = undef) {
+define drush::cron ($uri = undef,
+                    $onlyif = 'test !',
+                    $site_root = undef
+                    )
+{
 
   Exec { path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/", "/usr/local/bin", "/usr/local/sbin" ] }
 
@@ -8,8 +12,13 @@ define drush::cron ($site_root = undef) {
     $siteroot = "--root=${site_root}"
   }
 
+	if $uri {
+    $u = "--l=${uri}"
+  }
+
   exec {"drush-si-${name}":
-    command => "drush $siteroot cron -y",
+    command => "drush cron $siteroot $u -y",
+    onlyif => $onlyif,
     timeout => 0,
   }
 }

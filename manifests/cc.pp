@@ -1,4 +1,6 @@
 define drush::cc ($cache = 'all',
+                  $uri = undef,
+                  $onlyif = 'test !',
                   $site_root = undef
                  )
 {
@@ -11,8 +13,13 @@ define drush::cc ($cache = 'all',
     $siteroot = "--root=${site_root}"
   }
 
+	if $uri {
+    $u = "--l=${uri}"
+  }
+
   exec {"drush-cc-${name}":
-    command => "drush cc $cache $siteroot -y",
+    command => "drush cc $cache $siteroot $u -y",
+    onlyif => $onlyif,
     require => Exec['drush_status_check'],
   }
 }
