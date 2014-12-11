@@ -78,7 +78,7 @@ define drush::si ($profile = undef,
     onlyif  => $onlyif,
     timeout => 0,
     require => [
-      File["${$site_root}"],
+      #File["${$site_root}"],
       Exec['drush_status_check'],
       Package['php-cli'],
       Package['php-common'],
