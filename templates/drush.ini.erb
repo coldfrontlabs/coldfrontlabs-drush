@@ -93,6 +93,14 @@
 <%       end -%>
 <%     end -%>
 <%   else -%>
-<%=    k %> = <%= v %>
+<%     if v == true or v == '' -%>
+<%=      k %>
+<%     elsif v.is_a?(Array) -%>
+<%       v.each do |vi| -%>
+<%=        k %> = <%= vi %>
+<%       end -%>
+<%     elsif ![nil, '', :undef].include?(v) -%>
+<%=      k %> = <%= v %>
+<%     end -%>
 <%   end %>
 <% end -%>
