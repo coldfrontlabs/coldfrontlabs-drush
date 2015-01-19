@@ -77,4 +77,16 @@ drush::si {"drush-si-${name}":
   }
 ````
 
+#### Hiera Configuration
+
+Some configuration options can be passed in through Hiera
+
+##### /etc/drush/drush.ini
+
+````yaml
+drush::ini:
+    memory_limit: 128M
+    max_execution_time: 300
+````
+
 For more examples, see the [Drupal Site Install puppet module](https://github.com/coldfrontlabs/coldfrontlabs-drupalsi).
