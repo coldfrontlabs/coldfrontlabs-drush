@@ -53,14 +53,10 @@ class drush ($version = '6.*', $drush_cmd = '/usr/bin/drush', $composer_home = '
 
   $options = hiera_hash('drush::ini', {})
 
-  file {'drush-ini-dir':
-    path => '/etc/drush',
-    ensure => 'directory',
-    mode => '0744',
-  }->
   file { 'drush-ini-config':
     path    => "/etc/drush/drush.ini",
     content => template('drush/ini.erb', 'drush/drush.ini.erb'),
     mode    => '0644',
+    require => File["/etc/drush"],
   }
 }
