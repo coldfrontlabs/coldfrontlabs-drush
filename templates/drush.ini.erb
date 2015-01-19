@@ -101,6 +101,8 @@
 <%       end -%>
 <%     elsif ![nil, '', :undef].include?(v) -%>
 <%=      k %> = <%= v %>
+<%     else -%>
+<%=      k %> = <%= v %>
 <%     end -%>
 <%   end %>
 <% end -%>
