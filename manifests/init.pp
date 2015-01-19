@@ -51,7 +51,7 @@ class drush ($version = '6.*', $drush_cmd = '/usr/bin/drush', $composer_home = '
   $groups = hiera_hash('drush::site_alias_group', {})
   create_resources(drush::site_alias_group, $groups)
 
-  $options = $drush::ini
+  $options = hiera_hash('drush::ini', {})
 
   file {'drush-ini-dir':
     path => '/etc/drush',
