@@ -1,4 +1,4 @@
-v 0.2.0
+v 0.2.1
  - Add support for global /etc/drush/drush.ini configuration
 
 v 0.1.5
