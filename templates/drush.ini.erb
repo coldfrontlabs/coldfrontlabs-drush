@@ -55,14 +55,14 @@
 ; to run; make the memory limit setting match
 ; what you have in your webserver's php.ini.
 ;
-memory_limit = 128M
+; memory_limit = 128M
 
 ;
 ; Show all errors and direct them to stderr
 ; when running drush.
 ;
-error_reporting = E_ALL | E_NOTICE | E_STRICT
-display_errors = stderr
+; error_reporting = E_ALL | E_NOTICE | E_STRICT
+; display_errors = stderr
 
 ;
 ; If your php.ini for your webserver is too
@@ -77,3 +77,30 @@ display_errors = stderr
 ;open_basedir =
 ;disable_functions =
 ;disable_classes =
+
+<% @options.sort.map do |k,v| -%>
+<%   if v.is_a?(Hash) -%>
+[<%=   k %>]
+<%     v.sort.map do |ki, vi| -%>
+<%       if vi == true or v == '' -%>
+<%=        ki %>
+<%       elsif vi.is_a?(Array) -%>
+<%         vi.each do |vii| -%>
+<%=          ki %> = <%= vii %>
+<%         end -%>
+<%       elsif ![nil, '', :undef].include?(vi) -%>
+<%=        ki %> = <%= vi %>
+<%       end -%>
+<%     end -%>
+<%   else -%>
+<%     if v == true or v == '' -%>
+<%=      k %>
+<%     elsif v.is_a?(Array) -%>
+<%       v.each do |vi| -%>
+<%=        k %> = <%= vi %>
+<%       end -%>
+<%     elsif ![nil, '', :undef].include?(v) -%>
+<%=      k %> = <%= v %>
+<%     end -%>
+<%   end %>
+<% end -%>
