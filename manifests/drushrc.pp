@@ -1,5 +1,5 @@
 # Add an instance of the drushrc.php file in the given location
-define drush::drushrc($username,
+define drush::drushrc($user,
                       $settings,
                       $location = undef
 ) {
