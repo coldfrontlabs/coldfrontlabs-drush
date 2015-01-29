@@ -38,6 +38,6 @@ define drush::drushrc($user,
     owner => $user,
     group => $user,
     mode => 0700,
-    require => [User[$user], File[$dir]],
+    require => [User[$user]],
   }
 }
