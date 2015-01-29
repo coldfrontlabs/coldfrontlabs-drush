@@ -67,6 +67,6 @@ class drush (
   }
 
   # Build drushrc.php files
-  $options = hiera_hash('drush::drushrc', {})
-  create_resources(drush::drushrc, $users)
+  $rcs = hiera_hash('drush::drushrc', {})
+  create_resources(drush::drushrc, $rcs)
 }
