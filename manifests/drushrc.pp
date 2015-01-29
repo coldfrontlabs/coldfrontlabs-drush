@@ -39,6 +39,5 @@ define drush::drushrc($user,
     ensure => 'directory',
     owner => $user,
     mode => 0700,
-    require => [User[$user]],
   }
 }
