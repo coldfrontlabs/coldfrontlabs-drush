@@ -10,8 +10,7 @@ class drush (
 
   file {"${composer_home}":
     ensure => 'directory',
-  }
-
+  }->
   class { 'composer':
     logoutput       => true,
     composer_home   => $composer_home,
