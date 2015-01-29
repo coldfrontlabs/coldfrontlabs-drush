@@ -21,7 +21,7 @@ define drush::drushrc($user,
     }
   }
   else {
-    $dir = "${location}/.drush"
+    $dir = "${location}"
   }
 
   file { "${dir}/drushrc.php":
