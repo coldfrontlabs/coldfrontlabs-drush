@@ -1,5 +1,9 @@
-class drush ($version = '6.*', $drush_cmd = '/usr/bin/drush', $composer_home = '/usr/local/share/composer') {
-  include epel
+class drush (
+  $version = '6.*',
+  $drush_cmd = $::drush::params::drush_cmd,
+  $composer_home = $::drush::params::composer_home
+  ) inherits ::drush::params {
+
 
   Exec { path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/", "/usr/local/bin", "/usr/local/sbin" ] }
   package { ['zip', 'unzip', 'gzip', 'tar', 'bash-completion']: ensure => present}
@@ -11,7 +15,7 @@ class drush ($version = '6.*', $drush_cmd = '/usr/bin/drush', $composer_home = '
   class { 'composer':
     logoutput       => true,
     composer_home   => $composer_home,
-    require         => File['/usr/local/share/composer'],
+    require         => File["{$composer_home}"],
   }
 
   composer::require {"drush_global":
