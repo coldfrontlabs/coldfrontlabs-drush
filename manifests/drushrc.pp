@@ -1,27 +1,42 @@
 # Add an instance of the drushrc.php file in the given location
-define drush::drushrc($name) {
+define drush::drushrc($username,
+                      $settings,
+                      $location = undef
+) {
 
-  # Work around to dynamically load a user's home directory location
-  # @see https://ask.puppetlabs.com/question/5373/how-to-reference-a-users-home-directory/
-  $home_var = "homedir_${name}"
-  $dir = inline_template("<%= scope.lookupvar(@home_var) %>")
+  # Try to auto detect the location of the user's home directory
+  if !$location {
+    # Work around to dynamically load a user's home directory location
+    # @see https://ask.puppetlabs.com/question/5373/how-to-reference-a-users-home-directory/
+    $home_var = "homedir_${user}"
+    $directory = inline_template("<%= scope.lookupvar(@home_var) %>")
+    if !$directory {
+      # Fallback
+      # @todo add support for Windows? Or make a better fallback...
+      $dir = "/home/${user}/.drush"
+    }
+    else {
+      $dir = "${directory}/.drush"
+    }
+  }
 
-  file {"${dir}/.drush/drushrc.php":
+  file { "${dir}/drushrc.php":
     ensure => 'present',
-    owner => ${name},
-    group => ${name},
+    owner => $user,
+    group => $user,
     mode => '0644',
     content => template('drush/php.erb','drush/drushrc.php.erb'),
     require => [
-      File['${dir}/.drush'],
+      File["drushrc-location-${user}"],
     ]
   }
 
-  file {"${dir}/.drush":
+  file { "drushrc-location-${user}":
+    path => $dir,
     ensure => 'directory',
-    owner => ${name},
-    group => ${name},
-    mode => 0744,
-    require => User[${name}],
+    owner => $user,
+    group => $user,
+    mode => 0700,
+    require => [User[$user], File[$dir]],
   }
 }
