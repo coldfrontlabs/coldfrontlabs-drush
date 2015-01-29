@@ -1,3 +1,8 @@
+v 0.3.0
+ - Add support for drushrc.php file management
+ - Refactor init params
+ - Support for CentOS 7
+
 v 0.2.1
  - Add support for global /etc/drush/drush.ini configuration
 
