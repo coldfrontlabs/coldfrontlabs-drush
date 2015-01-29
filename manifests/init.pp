@@ -10,11 +10,11 @@ class drush (
 
   file {"${composer_home}":
     ensure => 'directory',
-  }->
+  }
   class { 'composer':
     logoutput       => true,
     composer_home   => $composer_home,
-    require         => File["{$composer_home}"],
+    require         => File["${composer_home}"],
   }
 
   composer::require {"drush_global":
