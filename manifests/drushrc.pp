@@ -20,6 +20,9 @@ define drush::drushrc($user,
       $dir = "${directory}/.drush"
     }
   }
+  else {
+    $dir = "${location}/.drush"
+  }
 
   file { "${dir}/drushrc.php":
     ensure => 'present',
