@@ -24,7 +24,6 @@ define drush::drushrc($user,
   file { "${dir}/drushrc.php":
     ensure => 'present',
     owner => $user,
-    group => $user,
     mode => '0644',
     content => template('drush/php.erb','drush/drushrc.php.erb'),
     require => [
@@ -36,7 +35,6 @@ define drush::drushrc($user,
     path => $dir,
     ensure => 'directory',
     owner => $user,
-    group => $user,
     mode => 0700,
     require => [User[$user]],
   }
