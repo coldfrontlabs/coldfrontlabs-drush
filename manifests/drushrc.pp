@@ -19,6 +19,13 @@ define drush::drushrc($user,
     else {
       $dir = "${directory}/.drush"
     }
+
+    file { "${dir}":
+      path => $dir,
+      ensure => 'directory',
+      owner => $user,
+      mode => 0700,
+    }
   }
   else {
     $dir = "${location}"
@@ -30,14 +37,7 @@ define drush::drushrc($user,
     mode => '0644',
     content => template('drush/php.erb','drush/drushrc.php.erb'),
     require => [
-      File["drushrc-location-${user}"],
+      File["${dir}"],
     ]
-  }
-
-  file { "drushrc-location-${user}":
-    path => $dir,
-    ensure => 'directory',
-    owner => $user,
-    mode => 0700,
   }
 }
