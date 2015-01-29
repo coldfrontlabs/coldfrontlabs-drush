@@ -52,9 +52,11 @@ class drush (
     ],
   }
 
+  # Build site aliase files
   $groups = hiera_hash('drush::site_alias_group', {})
   create_resources(drush::site_alias_group, $groups)
 
+  # Build global drush.ini file
   $options = hiera_hash('drush::ini', {})
 
   file { 'drush-ini-config':
@@ -63,4 +65,8 @@ class drush (
     mode    => '0644',
     require => File["/etc/drush"],
   }
+
+  # Build drushrc.php files
+  $options = hiera_hash('drush::drushrc', {})
+  create_resources(drush::drushrc, $users)
 }
