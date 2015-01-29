@@ -90,5 +90,21 @@ drush::ini:
     error_reporting: E_ALL | E_NOTICE | E_STRICT
     display_errors: stderr
 ````
+##### /home/myuser/.drush/drushrc.php
+
+````yaml
+drush::drushrc:
+  myuser:
+    user: myuser
+    settings:
+      - $options['my_drush_option'] = 'value';
+      - $options['another_option']['array'] = 'another value';
+  global:
+    user: root
+    settings:
+      - $options['global_option'] = 'value';
+    location: /etc/drush
+````
+
 
 For more examples, see the [Drupal Site Install puppet module](https://github.com/coldfrontlabs/coldfrontlabs-drupalsi).
