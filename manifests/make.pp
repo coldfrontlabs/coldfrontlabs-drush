@@ -147,7 +147,7 @@ define drush::make ($makefile,
   }
 
   exec {"drush-make-${filehash}":
-    command => "drush make $makefile $build_path $cnc $cd $d $dm $fc $ic $lib $mudu $m5 $nca $ncl $ncl $nco $ngi $npt $pi $proj $src $tr $tst $trans $v $wc -y",
+    command => "drush make '$makefile' $build_path $cnc $cd $d $dm $fc $ic $lib $mudu $m5 $nca $ncl $ncl $nco $ngi $npt $pi $proj $src $tr $tst $trans $v $wc -y",
     cwd => '/tmp',
     require => [Exec['drush_status_check'], File["/tmp/drush_make_prep-${filehash}.sh"]],
     timeout => 0,  # Drush make can take a while. We disable timeouts for this reason
