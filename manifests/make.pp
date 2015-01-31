@@ -146,13 +146,11 @@ define drush::make ($makefile,
     onlyif => ["/tmp/drush_make_prep-${filehash}.sh ${build_path}", "${onlyif}"]
   }->
   file_line{"drush-make-rmcurlrc-${filehash}":
-    before  => Exec["drush-make-${filehash}"],
     path => "${::homedir_root}/.curlrc",
     line => '-H "Accept: application/vnd.github.v3.raw"',
     ensure => 'absent',
   }->
   file_line{"drush-make-rmwgetrc-${filehash}":
-    before  => Exec["drush-make-${filehash}"],
     path => "${::homedir_root}/.wgetrc",
     line => 'header = Accept: application/vnd.github.v3.raw',
     ensure => 'absent',
