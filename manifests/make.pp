@@ -128,9 +128,11 @@ define drush::make ($makefile,
   if $makefile =~ /^(https?:\/\/api.github.com)/ {
     file {"drush-make-exist-curlrc-${filehash}":
       ensure => 'present',
+      path => "${::homedir_root}/.curlrc"
     }->
     file {"drush-make-exist-wgetrc-${filehash}":
       ensure => 'present',
+      path => "${::homedir_root}/.wgetrc"
     }->
     file_line{"drush-make-addcurlrc-${filehash}":
       before  => Exec["drush-make-${filehash}"],
