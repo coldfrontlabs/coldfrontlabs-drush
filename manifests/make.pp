@@ -125,7 +125,7 @@ define drush::make ($makefile,
   }
 
   # If the make is from the github api...
-  if defined(Exec["drush-make-${filehash}"]) and $makefile =~ /^(https?:\/\/api.github.com)/ {
+  if $makefile =~ /^(https?:\/\/api.github.com)/ {
     file_line{"drush-make-addcurlrc-${filehash}":
       before  => Exec["drush-make-${filehash}"],
       path => "${::homedir_root}/.curlrc",
