@@ -29,15 +29,15 @@ define drush::si ($profile = undef,
   }
 
   if $account_name {
-    $accountname = "--account-name=${account_name}"
+    $accountname = "--account-name='${account_name}'"
   }
 
   if $account_pass {
-    $accountpass = "--account-pass=${account_pass}"
+    $accountpass = "--account-pass='${account_pass}'"
   }
 
   if $account_mail {
-    $accountmail = "--account-mail=${account_mail}"
+    $accountmail = "--account-mail='${account_mail}'"
   }
 
   if $clean_url {
@@ -65,7 +65,7 @@ define drush::si ($profile = undef,
   }
 
   if $site_name {
-    $sitename = "--site-name=${site_name}"
+    $sitename = "--site-name='${site_name}'"
   }
 
   if $sites_subdir {

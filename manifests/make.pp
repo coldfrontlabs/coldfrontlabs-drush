@@ -124,11 +124,43 @@ define drush::make ($makefile,
     mode => 0755,
   }
 
+  # If the make is from the github api...
+  if $makefile =~ /^(https?:\/\/api.github.com)/ {
+    file {"drush-make-exist-curlrc-${filehash}":
+      ensure => 'present',
+      path => "${::homedir_root}/.curlrc"
+    }->
+    file {"drush-make-exist-wgetrc-${filehash}":
+      ensure => 'present',
+      path => "${::homedir_root}/.wgetrc"
+    }->
+    file_line{"drush-make-addcurlrc-${filehash}":
+      before  => Exec["drush-make-${filehash}"],
+      path => "${::homedir_root}/.curlrc",
+      line => '-H "Accept: application/vnd.github.v3.raw"',
+    }->
+    file_line{"drush-make-addwgetrc-${filehash}":
+      before  => Exec["drush-make-${filehash}"],
+      path => "${::homedir_root}/.wgetrc",
+      line => 'header = Accept: application/vnd.github.v3.raw',
+    }
+  }
+
   exec {"drush-make-${filehash}":
-    command => "drush make $makefile $build_path $cnc $cd $d $dm $fc $ic $lib $mudu $m5 $nca $ncl $ncl $nco $ngi $npt $pi $proj $src $tr $tst $trans $v $wc -y",
+    command => "drush make '$makefile' $build_path $cnc $cd $d $dm $fc $ic $lib $mudu $m5 $nca $ncl $ncl $nco $ngi $npt $pi $proj $src $tr $tst $trans $v $wc -y",
     cwd => '/tmp',
     require => [Exec['drush_status_check'], File["/tmp/drush_make_prep-${filehash}.sh"]],
     timeout => 0,  # Drush make can take a while. We disable timeouts for this reason
     onlyif => ["/tmp/drush_make_prep-${filehash}.sh ${build_path}", "${onlyif}"]
+  }->
+  file_line{"drush-make-rmcurlrc-${filehash}":
+    path => "${::homedir_root}/.curlrc",
+    line => '-H "Accept: application/vnd.github.v3.raw"',
+    ensure => 'absent',
+  }->
+  file_line{"drush-make-rmwgetrc-${filehash}":
+    path => "${::homedir_root}/.wgetrc",
+    line => 'header = Accept: application/vnd.github.v3.raw',
+    ensure => 'absent',
   }
 }
