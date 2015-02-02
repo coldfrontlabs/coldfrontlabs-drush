@@ -1,3 +1,6 @@
+v 0.3.5
+ - Add support for make files from private GitHub repos
+
 v 0.3.0
  - Add support for drushrc.php file management
  - Refactor init params
