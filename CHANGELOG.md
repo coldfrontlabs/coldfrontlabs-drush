@@ -1,3 +1,6 @@
+v 0.3.6
+ - Moved facts to facts.d
+
 v 0.3.5
  - Add support for make files from private GitHub repos
 
