@@ -1,3 +1,7 @@
+v 0.3.7
+ - Restored facts to lib/facter
+ - Switch to use :root_home fact from stdlib
+
 v 0.3.6
  - Moved facts to facts.d
 

@@ -1,5 +1,5 @@
 name    'coldfrontlabs-drush'
-version '0.3.6'
+version '0.3.7'
 source 'https://github.com/coldfrontlabs/coldfrontlabs-drush'
 author 'Coldfront Labs Inc.'
 license 'GPL, Version 2.0'
