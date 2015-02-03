@@ -128,20 +128,20 @@ define drush::make ($makefile,
   if $makefile =~ /^(https?:\/\/api.github.com)/ {
     file {"drush-make-exist-curlrc-${filehash}":
       ensure => 'present',
-      path => "${::homedir_root}/.curlrc"
+      path => "${::root_home}/.curlrc"
     }->
     file {"drush-make-exist-wgetrc-${filehash}":
       ensure => 'present',
-      path => "${::homedir_root}/.wgetrc"
+      path => "${::root_home}/.wgetrc"
     }->
     file_line{"drush-make-addcurlrc-${filehash}":
       before  => Exec["drush-make-${filehash}"],
-      path => "${::homedir_root}/.curlrc",
+      path => "${::root_home}/.curlrc",
       line => '-H "Accept: application/vnd.github.v3.raw"',
     }->
     file_line{"drush-make-addwgetrc-${filehash}":
       before  => Exec["drush-make-${filehash}"],
-      path => "${::homedir_root}/.wgetrc",
+      path => "${::root_home}/.wgetrc",
       line => 'header = Accept: application/vnd.github.v3.raw',
     }
   }
@@ -154,12 +154,12 @@ define drush::make ($makefile,
     onlyif => ["/tmp/drush_make_prep-${filehash}.sh ${build_path}", "${onlyif}"]
   }->
   file_line{"drush-make-rmcurlrc-${filehash}":
-    path => "${::homedir_root}/.curlrc",
+    path => "${::root_home}/.curlrc",
     line => '-H "Accept: application/vnd.github.v3.raw"',
     ensure => 'absent',
   }->
   file_line{"drush-make-rmwgetrc-${filehash}":
-    path => "${::homedir_root}/.wgetrc",
+    path => "${::root_home}/.wgetrc",
     line => 'header = Accept: application/vnd.github.v3.raw',
     ensure => 'absent',
   }
