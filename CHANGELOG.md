@@ -1,3 +1,6 @@
+v 0.3.8
+ - Fix bug where curlrc / wgetrc files aren't found
+
 v 0.3.7
  - Restored facts to lib/facter
  - Switch to use :root_home fact from stdlib
