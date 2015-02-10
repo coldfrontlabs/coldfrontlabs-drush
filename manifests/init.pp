@@ -6,7 +6,7 @@ class drush (
 
 
   Exec { path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/", "/usr/local/bin", "/usr/local/sbin" ] }
-  package { ['zip', 'unzip', 'gzip', 'tar', 'bash-completion']: ensure => present}
+  ensure_packages(['zip', 'unzip', 'gzip', 'tar', 'bash-completion'])
 
   file {"${composer_home}":
     ensure => 'directory',
