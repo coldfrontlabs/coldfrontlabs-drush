@@ -124,28 +124,19 @@ define drush::make ($makefile,
     mode => 0755,
   }
 
-  file {"drush-make-exist-curlrc":
-    ensure => 'present',
-    path => "${::root_home}/.curlrc"
-  }->
-  file {"drush-make-exist-wgetrc":
-    ensure => 'present',
-    path => "${::root_home}/.wgetrc"
-  }
-
   # If the make is from the github api...
   if $makefile =~ /^(https?:\/\/api.github.com)/ {
     file_line{"drush-make-addcurlrc-${filehash}":
       before  => Exec["drush-make-${filehash}"],
       path => "${::root_home}/.curlrc",
       line => '-H "Accept: application/vnd.github.v3.raw"',
-      require => File['drush-make-exist-curlrc', 'drush-make-exist-wgetrc']
+      require => File["drush-make-exist-curlrc", "drush-make-exist-wgetrc"]
     }->
     file_line{"drush-make-addwgetrc-${filehash}":
       before  => Exec["drush-make-${filehash}"],
       path => "${::root_home}/.wgetrc",
       line => 'header = Accept: application/vnd.github.v3.raw',
-      require => File['drush-make-exist-curlrc', 'drush-make-exist-wgetrc']
+      require => File["drush-make-exist-curlrc", "drush-make-exist-wgetrc"]
     }
   }
 

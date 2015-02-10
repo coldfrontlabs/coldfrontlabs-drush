@@ -52,6 +52,17 @@ class drush (
     ],
   }
 
+  # Files for controlling requests during drush make operations
+  file {"drush-make-exist-curlrc":
+    ensure => 'present',
+    path => "${::root_home}/.curlrc"
+  }
+
+  file {"drush-make-exist-wgetrc":
+    ensure => 'present',
+    path => "${::root_home}/.wgetrc"
+  }
+
   # Build site aliase files
   $groups = hiera_hash('drush::site_alias_group', {})
   create_resources(drush::site_alias_group, $groups)
