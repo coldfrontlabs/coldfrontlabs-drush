@@ -106,5 +106,29 @@ drush::drushrc:
     location: /etc/drush
 ````
 
+#### /etc/drush/<aliasgroup>.aliases.drushrc.php
+
+````yaml
+drush::site_alias_group:
+  dropfort:
+    name: 'dfapp'
+    description: "Dropfort Group Aliases"
+    aliases:
+      local:
+        name: 'local'
+        uri: 'app.dflocal.net:8080'
+        os: 'Linux'
+        root: /var/www/html/app
+      qa:
+        name: 'qa'
+        uri: 'appqa.dropfort.com'
+        remote_host: 'windsor.dropfort.com'
+        parent: 'prod'
+      prod:
+        name: 'prod'
+        uri: 'app.dropfort.com'
+        root: '/var/www/html/app'
+        remote_host: 'stirling.dropfort.com'
+````
 
 For more examples, see the [Drupal Site Install puppet module](https://github.com/coldfrontlabs/coldfrontlabs-drupalsi).
