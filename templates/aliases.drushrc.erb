@@ -13,7 +13,7 @@ $aliases["<%= als_value['name'] %>"] = array(
 <% end %><% if als_value['php'] != nil %>  'php' => '<%= als_value['php'] %>',
 <% end %><% if als_value['php_options'] != nil %>  'php-options' => '<%= als_value['php_options'] %>',
 <% end %><% if als_value['variables'] != nil %>  'variables' => '<%= als_value['variables'] %>',
-<% end %><% if als_value['command_specific'] != nil %>  'command-specific' => '<%= als_value['command_specific'] %>',
+<% end %><% if als_value['command_specific'] != nil %>  'command-specific' => <%= als_value['command_specific'] %>,
 <% end %><% if als_value['source_command_specific'] != nil %>  'source-command-specific' => '<%= als_value['source_command_specific'] %>',
 <% end %><% if als_value['databases'] != nil %>  'databases' => '<%= als_value['databases'] %>',
 <% end %><% if als_value['path_aliases'] != nil %>  'path-aliases' => array(
