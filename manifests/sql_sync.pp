@@ -46,13 +46,13 @@ define drush::sql_sync ( $source,
     $createdb = "--create-db"
   }
   if $db_su {
-    $dbsu = "--db-su=${db_su}"
+    $dbsu = "--db-su='${db_su}'"
   }
   if $db_su_pw {
-    $dbsupw = "--db-su=${db_su_pw}"
+    $dbsupw = "--db-su-pw='${db_su_pw}'"
   }
   if $dump_dir {
-    $dumpdir = "--dump-dir=${dump_dir}"
+    $dumpdir = "--dump-dir='${dump_dir}'"
   }
   if $no_cache {
     $nocache = "--no-cache"
@@ -76,7 +76,7 @@ define drush::sql_sync ( $source,
     $skiptableskey = "--skip-tables-key=${skip_tables_key}"
   }
   if $skip_tables_list {
-    $skiptableslist = "--skip-tables-key=${skip_tables_list}" # @todo add validation that this is a comma separated list
+    $skiptableslist = "--skip-tables-list=${skip_tables_list}" # @todo add validation that this is a comma separated list
   }
   if $source_database {
     $sourcedb = "--source-database=${source_database}"
