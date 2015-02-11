@@ -98,7 +98,7 @@ drush::drushrc:
     user: myuser
     settings:
       - $options['my_drush_option'] = 'value';
-      - $options['another_option']['array'] = 'another value';
+      - $aliases['another_option']['array'] = 'another value';
   global:
     user: root
     settings:
@@ -107,6 +107,17 @@ drush::drushrc:
 ````
 
 #### /etc/drush/<aliasgroup>.aliases.drushrc.php
+
+Some options require you to embed the actual section of the PHP array normally found in your site aliases file.
+This is true for any option which has an indefinite set of options. The commands include
+
+- shell_aliases
+- command_specific
+- target_command_specific
+- source_command_specific
+- variables
+
+To denote the block of text use the '>' operator in your YAML configuration. See "command_specific" in the example below.
 
 ````yaml
 drush::site_alias_group:
@@ -129,6 +140,10 @@ drush::site_alias_group:
         uri: 'app.dropfort.com'
         root: '/var/www/html/app'
         remote_host: 'stirling.dropfort.com'
+        command_specific: >
+          'sql-sync' => array(
+            'no-cache' => TRUE,
+          ),
 ````
 
 For more examples, see the [Drupal Site Install puppet module](https://github.com/coldfrontlabs/coldfrontlabs-drupalsi).

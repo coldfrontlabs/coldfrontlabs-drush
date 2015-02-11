@@ -1,6 +1,7 @@
 v0.4.0
   - Add support for update-db
   - Add support for sql-sync
+  - Add support for complex site alias settings (command_specific, target_command_specific, variables, shell_aliases, etc...)
 
 v 0.3.8
  - Fix bug where curlrc / wgetrc files aren't found
