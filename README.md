@@ -15,13 +15,6 @@ Features
 - Enables auto-complete configuration (see [drush.complete.sh](https://github.com/drush-ops/drush/blob/master/drush.complete.sh))
 - Configure /etc/drush/drush.ini file through Hiera
 
-Roadmap Features
-----------------
-
-- Site aliases configuration via Hiera
-- Policy files via Hiera
-- drushrc.php configuration
-
 Dependencies
 ------------
 
