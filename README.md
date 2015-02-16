@@ -166,4 +166,5 @@ drush::policies:
     }
 ````
 
+# More Info
 For more examples, see the [Drupal Site Install puppet module](https://github.com/coldfrontlabs/coldfrontlabs-drupalsi).
