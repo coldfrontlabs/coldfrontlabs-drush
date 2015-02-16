@@ -1,3 +1,6 @@
+v0.4.1
+  - Migrate to metadata.json format
+
 v0.4.0
   - Add support for update-db
   - Add support for sql-sync
