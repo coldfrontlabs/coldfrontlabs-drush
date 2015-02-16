@@ -146,4 +146,24 @@ drush::site_alias_group:
           ),
 ````
 
+#### /etc/drush/policy.drush.inc
+
+Enfore policies when running certain commands. Best example would be to limit sql-sync with production sites. Name the policy and use the '>' text block operator to wrap your PHP code.
+
+````yaml
+drush::policies:
+  sql_sync: >
+    /**
+     * Implement of drush_hook_COMMAND_validate().
+     *
+     * Prevent catastrophic braino. Note that this file has to be local to the machine
+     * that intitiates sql-sync command.
+     */
+    function drush_policy_sql_sync_validate($source = NULL, $destination = NULL) {
+      if ($destination == '@prod') {
+        return drush_set_error('POLICY_DENY', dt('Per examples/policy.drush.inc, you may never overwrite the production database.'));
+      }
+    }
+````
+
 For more examples, see the [Drupal Site Install puppet module](https://github.com/coldfrontlabs/coldfrontlabs-drupalsi).
