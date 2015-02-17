@@ -1,5 +1,6 @@
 v0.4.1
   - Migrate to metadata.json format
+  - Add support for managing policy.drush.inc file
 
 v0.4.0
   - Add support for update-db
