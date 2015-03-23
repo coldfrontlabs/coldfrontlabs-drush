@@ -18,18 +18,25 @@ class drush (
     require         => File["${composer_home}"],
   }
 
-  composer::require {"drush_global":
-    project_name => 'drush/drush',
-    global => true,
-    version => "${version}",
-    require => Class['composer'],
+  if str2bool("$hasdrush") {
+    file {"${drush_cmd}":
+      ensure => 'link',
+      target => "${composer_home}/vendor/bin/drush",
+    }
+  } else {
+    composer::require {"drush_global":
+      project_name => 'drush/drush',
+      global => true,
+      version => "${version}",
+      require => Class['composer'],
+    }
+    -> file {"${drush_cmd}":
+      ensure => 'link',
+      target => "${composer_home}/vendor/bin/drush",
+      require => Composer::Require['drush_global'],
+    }
   }
-  ->
-  file {"${drush_cmd}":
-    ensure => 'link',
-    target => "${composer_home}/vendor/bin/drush",
-    require => Composer::Require['drush_global'],
-  }->
+
   file {"/etc/drush":
     ensure => 'directory',
     owner => 'root',
