@@ -87,4 +87,8 @@ class drush (
   # Build drushrc.php files
   $rcs = hiera_hash('drush::drushrc', {})
   create_resources(drush::drushrc, $rcs)
+
+  # Build policy.drushrc.php file
+  $policies = hiera_hash('drush::policies', {})
+  create_resources(drush::policy, $policies)
 }
