@@ -72,6 +72,8 @@ define drush::si ($profile = undef,
     $sitessubdir = "--sites-subdir=${sites_subdir}"
   }
 
+  ensure_packages(['php-cli', 'php-common', 'php-mbstring', 'php-pdo', 'php-process', 'php-xml', 'php-pear'])
+
   exec {"drush-si-${name}":
     command => "drush si $profile $settings $siteroot $dburl $accountname $accountpass $accountmail $cleanurl $dbprefix $dbsu $dbsupw $lcl $sitemail $sitename $sitessubdir -y",
     cwd     => $site_root,
