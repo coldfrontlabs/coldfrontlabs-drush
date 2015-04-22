@@ -26,11 +26,13 @@ define drush::si ($profile = undef,
 
   if $db_url {
     $dburl = "--db-url=${db_url}"
-    if $db_url =~ /^mysql:/ {
-      ensure_packages(['php-mysql'], { before => Exec["drush-si-${name}"] })
-    }
+
     if $db_url =~ /^pgsql:/ {
-      ensure_packages(['php-pgsql'], { before => Exec["drush-si-${name}"] })
+      ensure_packages(['php-pgsql'])
+      $db_require = Package['php-pgsql']
+    } else {
+      ensure_packages(['php-mysql'])
+      $db_require = Package['php-mysql']
     }
   }
 
@@ -96,6 +98,7 @@ define drush::si ($profile = undef,
       Package['php-xml'],
       Package['php-pear'],
       Package['php-gd'],
+      $db_require,
     ]
   }
 }
