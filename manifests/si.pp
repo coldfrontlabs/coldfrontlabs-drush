@@ -26,6 +26,12 @@ define drush::si ($profile = undef,
 
   if $db_url {
     $dburl = "--db-url=${db_url}"
+    if $db_url =~ /^mysql:/ {
+      ensure_packages(['php-mysql'], { before => Exec["drush-si-${name}"] })
+    }
+    if $db_url =~ /^pgsql:/ {
+      ensure_packages(['php-pgsql'], { before => Exec["drush-si-${name}"] })
+    }
   }
 
   if $account_name {
