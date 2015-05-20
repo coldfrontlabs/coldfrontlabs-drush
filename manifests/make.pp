@@ -22,6 +22,8 @@ define drush::make ($makefile,
                     $translations = undef,
                     $version = false,
                     $working_copy = false,
+                    $dropfort_userauth_token = undef,
+                    $dropfort_url = undef,
                     $onlyif = 'test !'
                     )
 {
@@ -115,6 +117,12 @@ define drush::make ($makefile,
   if $working_copy {
     $wc = "--working-copy"
   }
+  if $dropfort_userauth_token {
+    $dut = "--dropfort_userauth_token=${dropfort_userauth_token}"
+  }
+  if $dropfort_url {
+    $durl = "--dropfort_url=${dropfort_url}"
+  }
 
   $filehash = md5("${makefile}-${build_path}")
 
@@ -141,7 +149,7 @@ define drush::make ($makefile,
   }
 
   exec {"drush-make-${filehash}":
-    command => "drush make '$makefile' $build_path $cnc $cd $d $dm $fc $ic $lib $mudu $m5 $nca $ncl $ncl $nco $ngi $npt $pi $proj $src $tr $tst $trans $v $wc -y",
+    command => "drush make '$makefile' $build_path $cnc $cd $d $dm $fc $ic $lib $mudu $m5 $nca $ncl $ncl $nco $ngi $npt $pi $proj $src $tr $tst $trans $v $wc $durl $dut -y",
     cwd => '/tmp',
     require => [Exec['drush_status_check'], File["/tmp/drush_make_prep-${filehash}.sh"]],
     timeout => 0,  # Drush make can take a while. We disable timeouts for this reason
