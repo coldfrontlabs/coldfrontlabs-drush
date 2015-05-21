@@ -150,14 +150,32 @@ define drush::make ($makefile,
 
   # If the dropfort commands are in use, ensure dropfort_update is available
   if $dropfort_userauth_token or $dropfort_url {
-    drush::dl{"root-dropfort_update":
+    drush::dl{"root-dropfort_update-${filehash}":
       project_name => 'dropfort_update',
       destination => "${::root_home}/.drush",
-      require => File['drush-dir-exist'],
+      require => [File['drush-dir-exist'], File['drush-root-drushrc']],
       before => Exec["drush-make-${filehash}"]
     }
-    ->drush::cc{"root-dropfort-update-cc":
+    ->drush::cc{"root-dropfort-update-cc-${filehash}":
       cache => 'drush',
+    }
+    if $dropfort_userauth_token {
+      file_line{"drush-make-root-drushrc-token-${filehash}":
+        path => "${::root_home}/.drush/drushrc.php",
+        line => "\$options['dropfort_userauth_token'] = '${dropfort_userauth_token}';",
+        require => Drush::Dl["root-dropfort_update-${filehash}"],
+        before => Exec["drush-make-${filehash}"],
+        ensure => 'present',
+      }
+    }
+    if $dropfort_url {
+      file_line{"drush-make-root-drushrc-token-${filehash}":
+        path => "${::root_home}/.drush/drushrc.php",
+        line => "\$options['dropfort_url'] = '${dropfort_url}';",
+        require => Drush::Dl["root-dropfort_update-${filehash}"],
+        before => Exec["drush-make-${filehash}"],
+        ensure => 'present',
+      }
     }
   }
 

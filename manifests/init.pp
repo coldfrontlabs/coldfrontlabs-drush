@@ -76,6 +76,12 @@ class drush (
     path => "${::root_home}/.drush"
   }
 
+  file {"drush-root-drushrc":
+    ensure => 'present',
+    path => "${::root_home}/.drush/drushrc.php",
+    content => template('drush/php.erb', 'drush/drushrc.php.erb'),
+  }
+
   # Build site aliase files
   $groups = hiera_hash('drush::site_alias_group', {})
   create_resources(drush::site_alias_group, $groups)
