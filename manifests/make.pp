@@ -156,6 +156,9 @@ define drush::make ($makefile,
       require => File['drush-dir-exist'],
       before => Exec["drush-make-${filehash}"]
     }
+    ->drush::cc{"root-dropfort-update-cc":
+      cache => 'drush',
+    }
   }
 
   exec {"drush-make-${filehash}":
