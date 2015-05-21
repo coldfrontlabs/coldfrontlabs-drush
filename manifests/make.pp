@@ -148,6 +148,16 @@ define drush::make ($makefile,
     }
   }
 
+  # If the dropfort commands are in use, ensure dropfort_update is available
+  if $dropfort_userauth_token or $dropfort_url {
+    drush::dl{"root-dropfort_update":
+      project_name => 'dropfort_update',
+      destination => "${::root_home}/.drush",
+      require => File['drush-dir-exist'],
+      before => Exec["drush-make-${filehash}"]
+    }
+  }
+
   exec {"drush-make-${filehash}":
     command => "drush make '$makefile' $build_path $cnc $cd $d $dm $fc $ic $lib $mudu $m5 $nca $ncl $ncl $nco $ngi $npt $pi $proj $src $tr $tst $trans $v $wc $durl $dut -y",
     cwd => '/tmp',

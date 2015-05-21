@@ -70,6 +70,12 @@ class drush (
     path => "${::root_home}/.wgetrc"
   }
 
+  # Files for controlling requests during drush make operations
+  file {"drush-dir-exist":
+    ensure => 'directory',
+    path => "${::root_home}/.drush"
+  }
+
   # Build site aliase files
   $groups = hiera_hash('drush::site_alias_group', {})
   create_resources(drush::site_alias_group, $groups)
