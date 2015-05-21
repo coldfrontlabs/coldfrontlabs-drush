@@ -156,9 +156,6 @@ define drush::make ($makefile,
       require => [File['drush-dir-exist'], File['drush-root-drushrc']],
       before => Exec["drush-make-${filehash}"]
     }
-    ->drush::cc{"root-dropfort-update-cc-${filehash}":
-      cache => 'drush',
-    }
     if $dropfort_userauth_token {
       file_line{"drush-make-root-drushrc-token-${filehash}":
         path => "${::root_home}/.drush/drushrc.php",
@@ -179,6 +176,9 @@ define drush::make ($makefile,
     }
   }
 
+  drush::cc{"root-dropfort-update-cc-${filehash}":
+    cache => 'drush',
+  }->
   exec {"drush-make-${filehash}":
     command => "drush make '$makefile' $build_path $cnc $cd $d $dm $fc $ic $lib $mudu $m5 $nca $ncl $ncl $nco $ngi $npt $pi $proj $src $tr $tst $trans $v $wc $durl $dut -y",
     cwd => '/tmp',
