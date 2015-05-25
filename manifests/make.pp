@@ -27,7 +27,7 @@ define drush::make ($makefile,
                     $onlyif = 'test !'
                     )
 {
-  Exec { path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/", "/usr/local/bin", "/usr/local/sbin" ] }
+#  Exec { path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/", "/usr/local/bin", "/usr/local/sbin" ] }
 
   # Check boolean variables
   validate_bool($dev)

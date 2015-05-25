@@ -1,3 +1,5 @@
+Exec { path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/", "/usr/local/bin", "/usr/local/sbin"], environment => ["HOME=${::root_home}"] }
+
 class drush (
   $version = '6.*',
   $drush_cmd = $::drush::params::drush_cmd,
@@ -5,7 +7,7 @@ class drush (
   ) inherits ::drush::params {
 
 
-  Exec { path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/", "/usr/local/bin", "/usr/local/sbin" ] }
+#  Exec { path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/", "/usr/local/bin", "/usr/local/sbin" ] }
   ensure_packages(['zip', 'unzip', 'gzip', 'tar', 'bash-completion'])
 
   file {"${composer_home}":
