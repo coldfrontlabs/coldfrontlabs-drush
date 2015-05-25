@@ -36,7 +36,7 @@ define drush::sql_sync ( $source,
   validate_bool($sanitize)
   validate_bool($temp)
 
-  Exec { path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/", "/usr/local/bin", "/usr/local/sbin" ] }
+  Exec { path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/", "/usr/local/bin", "/usr/local/sbin"], environment => ["HOME=${::root_home}"] }
 
 
   if $cache {

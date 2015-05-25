@@ -8,7 +8,7 @@ define drush::dl ($project_name = undef,
                   $site_root = undef
                   )
 {
-  Exec { path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/", "/usr/local/bin", "/usr/local/sbin" ] }
+  Exec { path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/", "/usr/local/bin", "/usr/local/sbin"], environment => ["HOME=${::root_home}"] }
 
 	# Build the arguments for the command.
 	if $site_root {

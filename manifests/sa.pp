@@ -22,7 +22,7 @@ define drush::sa ($site_root,
   validate_bool($with_optional)
 	validate_absolute_path($site_root)
 
-  Exec { path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/", "/usr/local/bin", "/usr/local/sbin" ] }
+  Exec { path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/", "/usr/local/bin", "/usr/local/sbin"], environment => ["HOME=${::root_home}"] }
 
 	# Build the arguments for the command.
 
