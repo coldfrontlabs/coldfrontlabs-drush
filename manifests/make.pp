@@ -166,7 +166,7 @@ define drush::make ($makefile,
       }
     }
     if $dropfort_url {
-      file_line{"drush-make-root-drushrc-token-${filehash}":
+      file_line{"drush-make-root-drushrc-url-${filehash}":
         path => "${::root_home}/.drush/drushrc.php",
         line => "\$options['dropfort_url'] = '${dropfort_url}';",
         require => Drush::Dl["root-dropfort_update-${filehash}"],
@@ -195,5 +195,15 @@ define drush::make ($makefile,
     path => "${::root_home}/.wgetrc",
     line => 'header = Accept: application/vnd.github.v3.raw',
     ensure => 'absent',
+  }->
+  file_line{"remove-drush-make-root-drushrc-token-${filehash}":
+    path => "${::root_home}/.drush/drushrc.php",
+    line => "\$options['dropfort_userauth_token'] = '${dropfort_userauth_token}';",
+    ensure => 'present',
+  }->
+  file_line{"remove-drush-make-root-drushrc-url-${filehash}":
+    path => "${::root_home}/.drush/drushrc.php",
+    line => "\$options['dropfort_url'] = '${dropfort_url}';",
+    ensure => 'abset',
   }
 }
