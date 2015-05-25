@@ -1,3 +1,8 @@
+v0.4.2
+  - Fix missing HOME environment variable during puppet exec
+  - Add dropfort_userauth_token and dropfort_url options to drush make
+  - Auto deploy dropfort_update when using auth or url options
+
 v0.4.1
   - Migrate to metadata.json format
   - Add support for managing policy.drush.inc file

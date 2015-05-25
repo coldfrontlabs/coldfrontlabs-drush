@@ -1,6 +1,6 @@
 {
   "name": "coldfrontlabs-drush",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "author": "coldfrontlabs",
   "summary": "Install, manage and run Drush commands with puppet.",
   "license": "GPL, Version 2.0",
