@@ -204,6 +204,6 @@ define drush::make ($makefile,
   file_line{"remove-drush-make-root-drushrc-url-${filehash}":
     path => "${::root_home}/.drush/drushrc.php",
     line => "\$options['dropfort_url'] = '${dropfort_url}';",
-    ensure => 'abset',
+    ensure => 'absent',
   }
 }
