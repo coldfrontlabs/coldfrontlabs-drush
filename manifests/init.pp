@@ -82,6 +82,7 @@ class drush (
     ensure => 'present',
     path => "${::root_home}/.drush/drushrc.php",
     content => template('drush/php.erb'),
+    replace => 'no',
   }
 
   # Build site aliase files
