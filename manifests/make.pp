@@ -178,6 +178,7 @@ define drush::make ($makefile,
 
   drush::cc{"root-dropfort-update-cc-${filehash}":
     cache => 'drush',
+    onlyif => ["/tmp/drush_make_prep-${filehash}.sh ${build_path}", "${onlyif}"],
   }->
   exec {"drush-make-${filehash}":
     command => "drush make '$makefile' $build_path $cnc $cd $d $dm $fc $ic $lib $mudu $m5 $nca $ncl $ncl $nco $ngi $npt $pi $proj $src $tr $tst $trans $v $wc $durl $dut -y",

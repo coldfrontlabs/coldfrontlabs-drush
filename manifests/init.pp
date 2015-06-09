@@ -49,6 +49,7 @@ class drush (
   -> exec {'drush_status_check':
     command => 'drush status',
     require => File["${drush_cmd}"],
+    refreshonly => 'true',
   }
 
   file {'/etc/bash_completion.d/drush.complete.sh':
