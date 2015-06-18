@@ -28,10 +28,10 @@ define drush::si ($profile = undef,
     $dburl = "--db-url=${db_url}"
 
     if $db_url =~ /^pgsql:/ {
-      ensure_packages(['php-pgsql'])
+      ensure_packages(['php-pgsql'], {'ensure' => 'installed'})
       $db_require = Package['php-pgsql']
     } else {
-      ensure_packages(['php-mysql'])
+      ensure_packages(['php-mysql'], {'ensure' => 'installed'})
       $db_require = Package['php-mysql']
     }
   }
@@ -80,7 +80,8 @@ define drush::si ($profile = undef,
     $sitessubdir = "--sites-subdir=${sites_subdir}"
   }
 
-  ensure_packages(['php-cli', 'php-common', 'php-mbstring', 'php-pdo', 'php-process', 'php-xml', 'php-pear', 'php-gd'])
+  ensure_packages(['php-mbstring', 'php-pdo', 'php-process', 'php-xml', 'php-gd'], {'ensure' => 'installed'})
+  ensure_packages('php-cli', {'ensure' => 'present'})
 
   exec {"drush-si-${name}":
     command => "drush si $profile $settings $siteroot $dburl $accountname $accountpass $accountmail $cleanurl $dbprefix $dbsu $dbsupw $lcl $sitemail $sitename $sitessubdir -y",
