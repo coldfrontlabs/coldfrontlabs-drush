@@ -47,10 +47,7 @@ define drush::arr ($filename,
   exec {"drush-arr-${name}":
     command => "drush archive-restore $filename $sitename $dest $dbprefix $dbsu $dbsupw $dburl $ovr $tar -y",
     onlyif  => $onlyif,
+    creates => "${destination}/index.php",
     timeout => 0,
-    creates => $destination,
-    require => [
-      File["${filename}"],
-    ]
   }
 }
