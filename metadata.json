@@ -12,7 +12,6 @@
     {"name":"tPl0ch/composer", "version_requirement":">= 1.2.1"},
     {"name":"stahnma/epel", "version_requirement":">= 1.0.1"},
     {"name":"puppetlabs/concat", "version_requirement":">= 1.0.4"},
-    {"name":"puppetlabs/git", "version_requirement":">= 0.2.0"},
-    {"name":"maestrodev/wget", "version_requirement":">= 1.7.0"}
+    {"name":"puppetlabs/git", "version_requirement":">= 0.2.0"}
   ]
 }
