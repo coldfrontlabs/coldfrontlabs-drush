@@ -1,4 +1,4 @@
-define drush::arr ($file,
+define drush::arr ($filename,
                   $sitename = undef,
                   $destination,
                   $db_prefix = undef,
@@ -7,17 +7,18 @@ define drush::arr ($file,
                   $db_url = undef,
                   $overwrite = false,
                   $tar_options = false,
+                  $onlyif = 'test !'
 ) {
   validate_bool($overwrite)
   validate_string($sitename)
-	validate_absolute_path($file)
+	validate_absolute_path($filename)
 	validate_absolute_path($destination)
 
   Exec { path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/", "/usr/local/bin", "/usr/local/sbin"], environment => ["HOME=${::root_home}"] }
 
 	# Build the arguments for the command.
 
-  $dest = "--destination=${dest}"
+  $dest = "--destination=${destination}"
 
   if $db_prefix {
     $dbprefix = "--db-prefix=${db_prefix}"
@@ -44,9 +45,12 @@ define drush::arr ($file,
   }
 
   exec {"drush-arr-${name}":
-    command => "drush archive-restore $file $sitename $dest $dbprefix $dbsu $dbsupw $dburl $ovr $tar -y",
+    command => "drush archive-restore $filename $sitename $dest $dbprefix $dbsu $dbsupw $dburl $ovr $tar -y",
+    onlyif  => $onlyif,
+    timeout => 0,
+    creates => $destination,
     require => [
-      File[["${file}"], ["${destination}"]],
+      File["${filename}"],
     ]
   }
 }
