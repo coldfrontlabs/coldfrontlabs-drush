@@ -43,10 +43,10 @@ define drush::arr ($file,
     $tar = "--db-prefix=${tar_options}"
   }
 
-  exec {"drush-sa-${name}":
+  exec {"drush-arr-${name}":
     command => "drush archive-restore $file $sitename $dest $dbprefix $dbsu $dbsupw $dburl $ovr $tar -y",
     require => [
-      File["${file}"],
+      File[["${file}"], ["${destination}"]],
     ]
   }
 }
