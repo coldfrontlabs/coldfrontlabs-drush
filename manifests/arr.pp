@@ -46,7 +46,7 @@ define drush::arr ($file,
   exec {"drush-sa-${name}":
     command => "drush archive-restore $file $sitename $dest $dbprefix $dbsu $dbsupw $dburl $ovr $tar -y",
     require => [
-      File["${file}"],
+      File[["${file}"], ["${destination}"]],
     ]
   }
 }
