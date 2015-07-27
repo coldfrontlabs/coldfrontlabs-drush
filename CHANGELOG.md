@@ -1,3 +1,8 @@
+v0.5.0
+  - tPl0ch/composer v2.0.0 support
+  - drush rsync command
+  - drush arr command
+
 v0.4.2
   - Fix missing HOME environment variable during puppet exec
   - Add dropfort_userauth_token and dropfort_url options to drush make
