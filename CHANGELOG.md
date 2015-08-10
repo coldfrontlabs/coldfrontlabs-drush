@@ -1,3 +1,6 @@
+v0.4.3
+  - drush arr command
+
 v0.4.2
   - Fix missing HOME environment variable during puppet exec
   - Add dropfort_userauth_token and dropfort_url options to drush make

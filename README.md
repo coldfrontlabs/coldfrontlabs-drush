@@ -22,6 +22,7 @@ Since Drush requires composer to be installed, this module depends on our fork o
 
 - [Composer Puppet Module](https://github.com/coldfrontlabs/puppet-composer)
 
+
 Testing
 -------
 
