@@ -1,6 +1,4 @@
-v0.5.0
-  - tPl0ch/composer v2.0.0 support
-  - drush rsync command
+v0.4.3
   - drush arr command
 
 v0.4.2
