@@ -29,10 +29,10 @@ define drush::si ($profile = undef,
 
     if $db_url =~ /^pgsql:/ {
       ensure_packages(['php-pgsql'], {'ensure' => 'installed'})
-      $db_require = Package['php-pgsql']
+      $db_require = Php::Extension['pgsql']
     } else {
       ensure_packages(['php-mysql'], {'ensure' => 'installed'})
-      $db_require = Package['php-mysql']
+      $db_require = Php::Extension['mysql']
     }
   }
 
@@ -80,9 +80,6 @@ define drush::si ($profile = undef,
     $sitessubdir = "--sites-subdir=${sites_subdir}"
   }
 
-  ensure_packages(['php-mbstring', 'php-pdo', 'php-process', 'php-xml', 'php-gd'], {'ensure' => 'installed'})
-  ensure_packages('php-cli', {'ensure' => 'present'})
-
   exec {"drush-si-${name}":
     command => "drush si $profile $settings $siteroot $dburl $accountname $accountpass $accountmail $cleanurl $dbprefix $dbsu $dbsupw $lcl $sitemail $sitename $sitessubdir -y",
     cwd     => $site_root,
@@ -91,14 +88,12 @@ define drush::si ($profile = undef,
     require => [
       #File["${$site_root}"],
       Exec['drush_status_check'],
-      Package['php-cli'],
-      Package['php-common'],
-      Package['php-mbstring'],
-      Package['php-pdo'],
-      Package['php-process'],
-      Package['php-xml'],
-      Package['php-pear'],
-      Package['php-gd'],
+      Class['php::cli'],
+      Php::Extension['mbstring'],
+      Php::Extension['pdo'],
+      Php::Extension['process'],
+      Php::Extension['xml'],
+      Php::Extension['gd'],
       $db_require,
     ]
   }
