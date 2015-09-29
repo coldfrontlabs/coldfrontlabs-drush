@@ -34,6 +34,14 @@ define drush::arr ($filename,
 
   if $db_url {
     $dburl = "--db-url=${db_url}"
+
+    if $db_url =~ /^pgsql:/ {
+      ensure_packages(['php-pgsql'], {'ensure' => 'installed'})
+      $db_require = Php::Extension['pgsql']
+    } else {
+      ensure_packages(['php-mysql'], {'ensure' => 'installed'})
+      $db_require = Php::Extension['mysql']
+    }
   }
 
   if $overwrite {
@@ -49,5 +57,15 @@ define drush::arr ($filename,
     onlyif  => $onlyif,
     creates => "${destination}/index.php",
     timeout => 0,
+    require => [
+      Exec['drush_status_check'],
+      Class['php::cli'],
+      Php::Extension['mbstring'],
+      Php::Extension['pdo'],
+      Php::Extension['process'],
+      Php::Extension['xml'],
+      Php::Extension['gd'],
+      $db_require,
+    ],
   }
 }
