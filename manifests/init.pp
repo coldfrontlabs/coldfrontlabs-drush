@@ -28,9 +28,8 @@ class drush (
   } else {
     composer::exec {"drush_global":
       cmd => 'require',
-      packages => 'drush/drush',
+      packages => "drush/drush:${version}",
       global => true,
-      version => "${version}",
       require => Class['composer'],
     }
     -> file {"${drush_cmd}":
