@@ -26,7 +26,8 @@ class drush (
       target => "${composer_home}/vendor/bin/drush",
     }
   } else {
-    composer::require {"drush_global":
+    composer::exec {"drush_global":
+      cmd => 'require',
       project_name => 'drush/drush',
       global => true,
       version => "${version}",
