@@ -36,7 +36,7 @@ class drush (
     -> file {"${drush_cmd}":
       ensure => 'link',
       target => "${composer_home}/vendor/bin/drush",
-      require => Composer::Require['drush_global'],
+      require => Composer::Exec['drush_global'],
     }
   }
 
