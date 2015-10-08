@@ -28,6 +28,7 @@ class drush (
   } else {
     composer::exec {"drush_global":
       cmd => 'require',
+      cwd => $composer_home,
       packages => "drush/drush:${version}",
       global => true,
       require => Class['composer'],
