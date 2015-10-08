@@ -38,6 +38,10 @@ class drush (
       target => "${composer_home}/vendor/bin/drush",
       require => Composer::Exec['drush_global'],
     }
+    -> exec{"drush-global-status":
+      command => "drush status",
+      cwd => "${composer_home}",
+    }
   }
 
   file {"/etc/drush":
