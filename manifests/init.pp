@@ -29,7 +29,7 @@ class drush (
     composer::exec {"drush_global":
       cmd => 'require',
       cwd => $composer_home,
-      packages => "drush/drush:${version}",
+      packages => ["drush/drush:${version}"],
       global => true,
       require => Class['composer'],
     }
