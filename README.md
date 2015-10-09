@@ -18,10 +18,7 @@ Features
 Dependencies
 ------------
 
-Since Drush requires composer to be installed, this module depends on our fork of [tPl0ch/composer](https://forge.puppetlabs.com/tPl0ch/composer) to install drush. Once v2 is released with "global" and "require" support our fork of this puppet module will be deprecated.
-
-- [Composer Puppet Module](https://github.com/coldfrontlabs/puppet-composer)
-
+Since Drush requires composer to be installed, this module depends on the feature-20 branch of [tPl0ch/composer](https://forge.puppetlabs.com/tPl0ch/composer) to install drush.
 
 Testing
 -------
