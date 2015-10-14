@@ -26,16 +26,21 @@ class drush (
       target => "${composer_home}/vendor/bin/drush",
     }
   } else {
-    composer::require {"drush_global":
-      project_name => 'drush/drush',
+    composer::exec {"drush_global":
+      cmd => 'require',
+      cwd => $composer_home,
+      packages => ["drush/drush:${version}"],
       global => true,
-      version => "${version}",
       require => Class['composer'],
     }
     -> file {"${drush_cmd}":
       ensure => 'link',
       target => "${composer_home}/vendor/bin/drush",
-      require => Composer::Require['drush_global'],
+      require => Composer::Exec['drush_global'],
+    }
+    -> exec{"drush-global-status":
+      command => "drush status",
+      cwd => "${composer_home}",
     }
   }
 
