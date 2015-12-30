@@ -12,7 +12,7 @@ define drush::si ($profile = undef,
                   $site_mail = undef,
                   $site_name = undef,
                   $sites_subdir = undef,
-                  $settings = '', # What is this used for?
+                  $settings = '', # key=value... settings to pass in optionally
                   $site_root,
                   $onlyif = 'test !'
                 )
