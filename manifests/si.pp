@@ -28,10 +28,12 @@ define drush::si ($profile = undef,
     $dburl = "--db-url=${db_url}"
 
     if $db_url =~ /^pgsql:/ {
-      ensure_packages(['php-pgsql'], {'ensure' => 'installed'})
+      $php_pgsql_package = hiera('php::pgsql_package', 'php-pgsql')
+      ensure_packages([$php_pgsql_package], {'ensure' => 'installed'})
       $db_require = Php::Extension['pgsql']
     } else {
-      ensure_packages(['php-mysql'], {'ensure' => 'installed'})
+      $php_mysql_package = hiera('php::mysql_package', 'php-mysql')
+      ensure_packages([$php_mysql_package], {'ensure' => 'installed'})
       $db_require = Php::Extension['mysql']
     }
   }
