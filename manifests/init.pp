@@ -43,7 +43,6 @@ class drush (
       cwd => "${composer_home}",
     }
   }
-
   file {"/etc/drush":
     ensure => 'directory',
     owner => 'root',
@@ -55,6 +54,15 @@ class drush (
     command => 'drush status',
     require => File["${drush_cmd}"],
     refreshonly => 'true',
+  }
+
+  # Add global commands directory
+  file {"/etc/drush/commands":
+    ensure => 'directory',
+    owner => 'root',
+    group => 'root',
+    mode => '0755',
+    require => File["/etc/drush"],
   }
 
   file {'/etc/bash_completion.d/drush.complete.sh':
