@@ -1,6 +1,6 @@
 
 class drush (
-  $version = '6.*',
+  $version = '8.*',
   $drush_cmd = $::drush::params::drush_cmd,
   $composer_home = $::drush::params::composer_home
   ) inherits ::drush::params {
@@ -14,10 +14,13 @@ class drush (
     ensure => 'directory',
   }
 
-  class { 'composer':
+  class { '::composer':
     logoutput       => true,
-    composer_home   => $composer_home,
-    require         => File["${composer_home}"],
+    command_name => 'composer',
+    target_dir   => $composer_home,
+    auto_update => true,
+    download_timeout => '100',
+    require      => File["${composer_home}"],
   }
 
   if str2bool("$hasdrush") {
@@ -26,21 +29,20 @@ class drush (
       target => "${composer_home}/vendor/bin/drush",
     }
   } else {
-    composer::exec {"drush_global":
-      cmd => 'require',
+    exec {"drush_global":
+      command => 'composer global require drush/drush${version}',
       cwd => $composer_home,
-      packages => ["drush/drush:${version}"],
-      global => true,
       require => Class['composer'],
     }
     -> file {"${drush_cmd}":
       ensure => 'link',
       target => "${composer_home}/vendor/bin/drush",
-      require => Composer::Exec['drush_global'],
+      require => Exec['drush_global'],
     }
     -> exec{"drush-global-status":
       command => "drush status",
       cwd => "${composer_home}",
+      require => File["${drush_cmd}"],
     }
   }
   file {"/etc/drush":
