@@ -15,7 +15,6 @@ class drush (
   }
 
   class { '::composer':
-    logoutput       => true,
     command_name => 'composer',
     target_dir   => $composer_home,
     auto_update => true,
