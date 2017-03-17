@@ -13,21 +13,18 @@ class drush (
   $drush_dl_url = "${drush_release_url}/${version}/drush.phar"
 
 
-  if str2bool("$hasdrush") {
-    # Do nothing
-  } else {
-    file {"${drush_cmd}":
-      ensure => 'present',
-      mode => '+x',
-      source => "${drush_dl_url}",
-    }
-    -> exec{"drush-global-status":
-      command => "drush status",
-    }
-    -> exec{"drush-global-init":
-      command => "drush init",
-    }
+  file {"${drush_cmd}":
+    ensure => 'present',
+    mode => '+x',
+    source => "${drush_dl_url}",
   }
+  -> exec{"drush-global-status":
+    command => "drush status",
+  }
+  -> exec{"drush-global-init":
+    command => "drush init",
+  }
+
   file {"/etc/drush":
     ensure => 'directory',
     owner => 'root',
