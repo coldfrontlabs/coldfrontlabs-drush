@@ -2,7 +2,8 @@
 class drush (
   $version = '8.*',
   $drush_cmd = $::drush::params::drush_cmd,
-  $composer_home = $::drush::params::composer_home
+  $composer_home = $::drush::params::composer_home,
+  $composer_bin_dir = $::drush::params::composer_bin_dir
   ) inherits ::drush::params {
 
 
@@ -25,7 +26,7 @@ class drush (
   if str2bool("$hasdrush") {
     file {"${drush_cmd}":
       ensure => 'link',
-      target => "${composer_home}/vendor/bin/drush",
+      target => "${composer_bin_dir}/drush",
     }
   } else {
     exec {"drush_global":
@@ -35,7 +36,7 @@ class drush (
     }
     -> file {"${drush_cmd}":
       ensure => 'link',
-      target => "${composer_home}/vendor/bin/drush",
+      target => "${composer_bin_dir}/drush",
       require => Exec['drush_global'],
     }
     -> exec{"drush-global-status":
@@ -69,7 +70,7 @@ class drush (
   file {'/etc/bash_completion.d/drush.complete.sh':
     ensure => 'link',
     owner => 'root',
-    target => "${composer_home}/vendor/drush/drush/drush.complete.sh",
+    target => "${composer_bin_dir}/drush.complete.sh",
     require => [
       Package['bash-completion'],
       Exec['drush_status_check'],
