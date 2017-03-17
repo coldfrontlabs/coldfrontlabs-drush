@@ -27,9 +27,6 @@ class drush (
   -> exec{"drush-global-status":
     command => "drush status",
   }
-  -> exec{"drush-global-init":
-    command => "drush init",
-  }
 
   file {"/etc/drush":
     ensure => 'directory',
