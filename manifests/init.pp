@@ -13,10 +13,16 @@ class drush (
   $drush_dl_url = "${drush_release_url}/${version}/drush.phar"
 
 
+  exec{'drush-global-download':
+    command => "/usr/bin/wget -q ${drush_dl_url} -O ${drush_cmd}",
+    creates => "${drush_cmd}",
+    require => Package['wget'],
+  }
+
   file {"${drush_cmd}":
     ensure => 'present',
     mode => '+x',
-    source => "${drush_dl_url}",
+    require => Exec['drush-global-download'],
   }
   -> exec{"drush-global-status":
     command => "drush status",
