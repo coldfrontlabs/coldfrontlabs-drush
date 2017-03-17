@@ -25,16 +25,13 @@ class drush (
     }
     -> file {"${drush_cmd}":
       ensure => 'present',
-      require => Exec['drush_global'],
       mode => '+x',
     }
     -> exec{"drush-global-status":
       command => "drush status",
-      require => File["${drush_cmd}"],
     }
     -> exec{"drush-global-init":
       command => "drush init",
-      require => Exec['drush-global-status'],
     }
   }
   file {"/etc/drush":
