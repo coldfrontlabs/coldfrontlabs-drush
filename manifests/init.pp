@@ -14,18 +14,12 @@ class drush (
 
 
   if str2bool("$hasdrush") {
+    # Do nothing
+  } else {
     file {"${drush_cmd}":
       ensure => 'present',
-      target => "${drush_cmd}",
-    }
-  } else {
-    exec {"drush_global":
-      command => "php -r 'readfile(\"${drush_dl_url}\");' > ${drush_cmd}",
-      require => Class['php'],
-    }
-    -> file {"${drush_cmd}":
-      ensure => 'present',
       mode => '+x',
+      source => "${drush_dl_url}",
     }
     -> exec{"drush-global-status":
       command => "drush status",
