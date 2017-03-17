@@ -18,11 +18,11 @@ class drush::params {
   if $::operatingsystem == 'Ubuntu' or $::osfamily == 'Debian' {
     $drush_cmd = '/usr/bin/drush'
     $composer_home = '/usr/local/bin'
-    $composer_bin_dir = '/root/.config/vendor/bin'
+    $composer_bin_dir = '/root/.config/composer/vendor/bin/'
   } elsif $::osfamily == 'RedHat' {
     $composer_home = '/usr/local/bin'
     $drush_cmd = '/usr/bin/drush'
-    $composer_bin_dir = '/root/.config/vendor/bin'
+    $composer_bin_dir = '/root/.config/composer/vendor/bin/'
     case $::operatingsystemmajrelease {
       '7': {
 
@@ -34,6 +34,6 @@ class drush::params {
   } elsif $::osfamily == 'FreeBSD' {
     $drush_cmd = '/usr/local/bin/drush'
     $composer_home = '/usr/local/bin'
-    $composer_bin_dir = '/root/.config/vendor/bin'
+    $composer_bin_dir = '/root/.config/composer/vendor/bin/'
   }
 }
