@@ -153,6 +153,7 @@ define drush::make ($makefile,
     drush::dl{"root-dropfort_update-${filehash}":
       project_name => 'dropfort_update',
       destination => "${::root_home}/.drush",
+      default_major => 7, #@todo make this pick the right version automatically
       require => [File['drush-dir-exist'], File['drush-root-drushrc']],
       before => Exec["drush-make-${filehash}"]
     }
