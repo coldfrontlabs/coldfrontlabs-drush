@@ -1,9 +1,8 @@
 
 class drush (
-  $version = '8.*',
+  $version = '8.1.10',
   $drush_cmd = $::drush::params::drush_cmd,
-  $composer_home = $::drush::params::composer_home,
-  $composer_bin_dir = $::drush::params::composer_bin_dir
+  $drush_release_url = $::drush::params::drush_release_url
   ) inherits ::drush::params {
 
 
@@ -11,38 +10,31 @@ class drush (
 
   ensure_packages(['zip', 'unzip', 'gzip', 'tar', 'bash-completion'])
 
-  file {"${composer_home}":
-    ensure => 'directory',
-  }
+  $drush_dl_url = "${drush_release_url}/${version}/drush.phar"
 
-  class { '::composer':
-    command_name => 'composer',
-    target_dir   => $composer_home,
-    auto_update => true,
-    download_timeout => '100',
-    require      => File["${composer_home}"],
-  }
 
   if str2bool("$hasdrush") {
     file {"${drush_cmd}":
-      ensure => 'link',
-      target => "${composer_bin_dir}/drush",
+      ensure => 'present',
+      target => "${drush_cmd}",
     }
   } else {
     exec {"drush_global":
-      command => 'composer global require drush/drush${version}',
-      cwd => $composer_home,
-      require => Class['composer'],
+      command => "php -r 'readfile(\"${drush_dl_url}\");' > ${drush_cmd}",
+      require => Class['php'],
     }
     -> file {"${drush_cmd}":
-      ensure => 'link',
-      target => "${composer_bin_dir}/drush",
+      ensure => 'present',
       require => Exec['drush_global'],
+      mode => '+x',
     }
     -> exec{"drush-global-status":
       command => "drush status",
-      cwd => "${composer_home}",
       require => File["${drush_cmd}"],
+    }
+    -> exec{"drush-global-init":
+      command => "drush init",
+      require => Exec['drush-global-status'],
     }
   }
   file {"/etc/drush":
@@ -65,16 +57,6 @@ class drush (
     group => 'root',
     mode => '0755',
     require => File["/etc/drush"],
-  }
-
-  file {'/etc/bash_completion.d/drush.complete.sh':
-    ensure => 'link',
-    owner => 'root',
-    target => "${composer_bin_dir}/drush.complete.sh",
-    require => [
-      Package['bash-completion'],
-      Exec['drush_status_check'],
-    ],
   }
 
   # Files for controlling requests during drush make operations
