@@ -129,7 +129,7 @@ define drush::make ($makefile,
   file {"/tmp/drush_make_prep-${filehash}.sh":
     ensure => 'present',
     source => ["puppet:///modules/drush/drush_make_prep.sh"],
-    mode => 0755,
+    mode => '0755',
   }
 
   # If the make is from the github api...
