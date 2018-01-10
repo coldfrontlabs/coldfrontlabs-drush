@@ -1,6 +1,6 @@
 
 class drush (
-  $version = '8.1.10',
+  $version = '8.1.15',
   $drush_cmd = $::drush::params::drush_cmd,
   $drush_release_url = $::drush::params::drush_release_url
   ) inherits ::drush::params {
@@ -16,6 +16,7 @@ class drush (
   exec{'drush-global-download':
     command => "/usr/bin/wget -q ${drush_dl_url} -O ${drush_cmd}",
     creates => "${drush_cmd}",
+    returns => [0],
     require => Package['wget'],
   }
 
