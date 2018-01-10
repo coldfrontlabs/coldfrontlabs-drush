@@ -30,6 +30,7 @@ class drush (
     command => "/usr/bin/wget -q ${drush_dl_url} -O ${drush_cmd}",
     creates => "${drush_cmd}",
     returns => [0],
+    onlyif  => "[[ $(${drush_cmd} --version --pipe) != *${version_actual}* ]]"
     require => Package['wget'],
   }
 
