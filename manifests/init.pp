@@ -10,8 +10,21 @@ class drush (
 
   ensure_packages(['zip', 'unzip', 'gzip', 'tar', 'bash-completion'])
 
-  $drush_dl_url = "${drush_release_url}/${version}/drush.phar"
+  # Pick the latest stable version if using wildcard.
+  if ('.*' == $version[1,2]) {
+    case $version[0] {
+      '6': { $version_actual = '6.7.0' }
+      '7': { $version_actual = '7.4.0' }
+      '8': { $version_actual = '8.1.15' }
+      default: { $version_actual = '8.1.15' } # Default to latest stable.
+    }
+  }
+  else {
+    $version_actual = $version
+  }
 
+  # Download the drush version.
+  $drush_dl_url = "${drush_release_url}/${version_actual}/drush.phar"
 
   exec{'drush-global-download':
     command => "/usr/bin/wget -q ${drush_dl_url} -O ${drush_cmd}",
