@@ -27,6 +27,6 @@ define drush::en ($project_name = undef,
     onlyif => $onlyif,
     # @todo add a check here that the module is not enabled. That way
     # puppet doesn't constantly run drush en and clear the drupal cache
-    require => Exec['drush_status_check'],
+    require => Exec['drush-global-download'],
   }
 }

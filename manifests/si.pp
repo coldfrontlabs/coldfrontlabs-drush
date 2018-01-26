@@ -89,7 +89,7 @@ define drush::si ($profile = undef,
     timeout => 0,
     require => [
       #File["${$site_root}"],
-      Exec['drush_status_check'],
+      Exec['drush-global-download'],
       Class['php::cli'],
       Php::Extension['mbstring'],
       Php::Extension['pdo'],

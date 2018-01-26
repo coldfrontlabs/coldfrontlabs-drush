@@ -43,7 +43,7 @@ define drush::dl ($project_name = undef,
   exec {"drush-dl-${name}":
     command => "drush dl $project_name $dst $src $dm $dpr $siteroot $u -y",
     onlyif => $onlyif,
-    require => Exec['drush_status_check'],
+    require => Exec['drush-global-download'],
   }
 
   if defined(Exec["drush-en-${name}"]) {

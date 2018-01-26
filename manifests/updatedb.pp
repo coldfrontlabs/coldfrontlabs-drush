@@ -23,7 +23,7 @@ define drush::updatedb ($uri = undef,
     onlyif  => $onlyif,
     timeout => 0,
     require => [
-      Exec['drush_status_check'],
+      Exec['drush-global-download'],
     ]
   }
 }

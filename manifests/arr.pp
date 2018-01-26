@@ -60,7 +60,7 @@ define drush::arr ($filename,
     creates => "${destination}/index.php",
     timeout => 0,
     require => [
-      Exec['drush_status_check'],
+      Exec['drush-global-download'],
       Class['php::cli'],
       Php::Extension['mbstring'],
       Php::Extension['pdo'],

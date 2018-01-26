@@ -9,6 +9,6 @@ define drush::up () {
   ->exec {"drush-up":
     command     => "drush pm-update -y",
     cwd         => $sitepath,
-    require     => Exec['drush_status_check'],
+    require     => Exec['drush-global-download'],
   }
 }
