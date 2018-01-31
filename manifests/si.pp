@@ -93,9 +93,7 @@ define drush::si ($profile = undef,
       Class['php::cli'],
       Php::Extension['mbstring'],
       Php::Extension['pdo'],
-      Php::Extension['process'],
       Php::Extension['xml'],
-      Php::Extension['gd'],
       #$db_require,
     ]
   }
