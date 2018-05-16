@@ -15,7 +15,7 @@ class drush (
     '6': { $version_actual = '6.7.0' }
     '7': { $version_actual = '7.4.0' }
     '8': { $version_actual = '8.1.15' }
-    '9': { $version_actual = '9.0.0' }
+    '9': { $version_actual = '0.6.0' }
     default: { $version_actual = '8.1.15' } # Default to latest stable.
   }
 
@@ -24,7 +24,7 @@ class drush (
 
   if $version[0] == '9' {
     exec{'drush-global-download':
-      command => "/usr/bin/wget -O ${drush_cmd} https://github.com/drush-ops/drush-launcher/releases/download/0.5.1/drush.phar",
+      command => "/usr/bin/wget -O ${drush_cmd} https://github.com/drush-ops/drush-launcher/releases/download/${version_actual}/drush.phar",
       creates => "${drush_cmd}",
       returns => [0],
       require => Package['wget'],
