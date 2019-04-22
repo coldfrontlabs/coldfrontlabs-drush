@@ -27,6 +27,6 @@ define drush::dis ($project_name = undef,
     onlyif => $onlyif,
     # @todo add a check here that the module is enabled. That way
     # puppet doesn't constantly run drush dis and clear the drupal cache
-    require => Exec['drush_status_check'],
+    require => Exec['drush-global-download'],
   }
 }

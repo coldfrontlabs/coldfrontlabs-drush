@@ -129,7 +129,7 @@ define drush::make ($makefile,
   file {"/tmp/drush_make_prep-${filehash}.sh":
     ensure => 'present',
     source => ["puppet:///modules/drush/drush_make_prep.sh"],
-    mode => 0755,
+    mode => '0755',
   }
 
   # If the make is from the github api...
@@ -153,6 +153,7 @@ define drush::make ($makefile,
     drush::dl{"root-dropfort_update-${filehash}":
       project_name => 'dropfort_update',
       destination => "${::root_home}/.drush",
+      default_major => 7, #@todo make this pick the right version automatically
       require => [File['drush-dir-exist'], File['drush-root-drushrc']],
       before => Exec["drush-make-${filehash}"]
     }
@@ -183,7 +184,7 @@ define drush::make ($makefile,
   exec {"drush-make-${filehash}":
     command => "drush make '$makefile' $build_path $cnc $cd $d $dm $fc $ic $lib $mudu $m5 $nca $ncl $ncl $nco $ngi $npt $pi $proj $src $tr $tst $trans $v $wc $durl $dut -y",
     cwd => '/tmp',
-    require => [Exec['drush_status_check'], File["/tmp/drush_make_prep-${filehash}.sh"]],
+    require => [Exec['drush-global-download'], File["/tmp/drush_make_prep-${filehash}.sh"]],
     timeout => 0,  # Drush make can take a while. We disable timeouts for this reason
     onlyif => ["/tmp/drush_make_prep-${filehash}.sh ${build_path}", "${onlyif}"]
   }->

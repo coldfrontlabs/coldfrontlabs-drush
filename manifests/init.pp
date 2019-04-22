@@ -1,8 +1,8 @@
 
 class drush (
-  $version = '6.*',
+  $version = '8.1.15',
   $drush_cmd = $::drush::params::drush_cmd,
-  $composer_home = $::drush::params::composer_home
+  $drush_release_url = $::drush::params::drush_release_url
   ) inherits ::drush::params {
 
 
@@ -10,50 +10,53 @@ class drush (
 
   ensure_packages(['zip', 'unzip', 'gzip', 'tar', 'bash-completion'])
 
-  file {"${composer_home}":
-    ensure => 'directory',
+  # Pick the latest stable version if using wildcard.
+  case $version[0] {
+    '6': { $version_actual = '6.7.0' }
+    '7': { $version_actual = '7.4.0' }
+    '8': { $version_actual = '8.1.15' }
+    '9': { $version_actual = '0.6.0' }
+    default: { $version_actual = '8.1.15' } # Default to latest stable.
   }
 
-  class { 'composer':
-    logoutput       => true,
-    composer_home   => $composer_home,
-    require         => File["${composer_home}"],
+  # Download the drush version.
+  $drush_dl_url = "${drush_release_url}/${version_actual}/drush.phar"
+
+  if $version[0] == '9' {
+    exec{'drush-global-download':
+      command => "/usr/bin/wget -O ${drush_cmd} https://github.com/drush-ops/drush-launcher/releases/download/${version_actual}/drush.phar",
+      creates => "${drush_cmd}",
+      returns => [0],
+      require => Package['wget'],
+    }
+  }
+  else {
+    exec{'drush-global-download':
+      command => "/usr/bin/wget -q ${drush_dl_url} -O ${drush_cmd}",
+      creates => "${drush_cmd}",
+      returns => [0],
+      unless  => "test $(${drush_cmd} --version --pipe) == ${version_actual}",
+      require => Package['wget'],
+    }
+    -> exec {'drush_status_check':
+      command => 'phar ${drush_cmd} status',
+      require => File["${drush_cmd}"],
+      refreshonly => 'true',
+    }
   }
 
-  if str2bool("$hasdrush") {
-    file {"${drush_cmd}":
-      ensure => 'link',
-      target => "${composer_home}/vendor/bin/drush",
-    }
-  } else {
-    composer::exec {"drush_global":
-      cmd => 'require',
-      cwd => $composer_home,
-      packages => ["drush/drush:${version}"],
-      global => true,
-      require => Class['composer'],
-    }
-    -> file {"${drush_cmd}":
-      ensure => 'link',
-      target => "${composer_home}/vendor/bin/drush",
-      require => Composer::Exec['drush_global'],
-    }
-    -> exec{"drush-global-status":
-      command => "drush status",
-      cwd => "${composer_home}",
-    }
+  file {"${drush_cmd}":
+    ensure => 'present',
+    mode => '+x',
+    require => Exec['drush-global-download'],
   }
+
   file {"/etc/drush":
     ensure => 'directory',
     owner => 'root',
     group => 'root',
     mode => '0755',
     require => File["${drush_cmd}"],
-  }
-  -> exec {'drush_status_check':
-    command => 'drush status',
-    require => File["${drush_cmd}"],
-    refreshonly => 'true',
   }
 
   # Add global commands directory
@@ -63,16 +66,6 @@ class drush (
     group => 'root',
     mode => '0755',
     require => File["/etc/drush"],
-  }
-
-  file {'/etc/bash_completion.d/drush.complete.sh':
-    ensure => 'link',
-    owner => 'root',
-    target => "${composer_home}/vendor/drush/drush/drush.complete.sh",
-    require => [
-      Package['bash-completion'],
-      Exec['drush_status_check'],
-    ],
   }
 
   # Files for controlling requests during drush make operations

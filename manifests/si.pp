@@ -27,15 +27,15 @@ define drush::si ($profile = undef,
   if $db_url {
     $dburl = "--db-url=${db_url}"
 
-    if $db_url =~ /^pgsql:/ {
-      $php_pgsql_package = hiera('php::pgsql_package', 'php-pgsql')
-      ensure_packages([$php_pgsql_package], {'ensure' => 'installed'})
-      $db_require = Php::Extension['pgsql']
-    } else {
-      $php_mysql_package = hiera('php::mysql_package', 'php-mysql')
-      ensure_packages([$php_mysql_package], {'ensure' => 'installed'})
-      $db_require = Php::Extension['mysql']
-    }
+    #if $db_url =~ /^pgsql:/ {
+    #  $php_pgsql_package = hiera('php::pgsql_package', 'php-pgsql')
+    ##  ensure_packages([$php_pgsql_package], {'ensure' => 'installed'})
+    #  $db_require = Php::Extension['pgsql']
+    #} else {
+      #$php_mysql_package = hiera('php::mysql_package', 'php-mysql')
+    #  #ensure_packages([$php_mysql_package], {'ensure' => 'installed'})
+      #$db_require = Php::Extension['mysql']
+    #}
   }
 
   if $account_name {
@@ -89,14 +89,12 @@ define drush::si ($profile = undef,
     timeout => 0,
     require => [
       #File["${$site_root}"],
-      Exec['drush_status_check'],
+      Exec['drush-global-download'],
       Class['php::cli'],
       Php::Extension['mbstring'],
       Php::Extension['pdo'],
-      Php::Extension['process'],
       Php::Extension['xml'],
-      Php::Extension['gd'],
-      $db_require,
+      #$db_require,
     ]
   }
 }

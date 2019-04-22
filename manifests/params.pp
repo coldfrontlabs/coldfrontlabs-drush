@@ -14,12 +14,11 @@
 # Sample Usage:
 #
 class drush::params {
+  $drush_release_url = "https://github.com/drush-ops/drush/releases/download"
 
-  if $::operatingsystem == 'Ubuntu' or $::osfamily == 'Debian' {
+if $::operatingsystem == 'Ubuntu' or $::osfamily == 'Debian' {
     $drush_cmd = '/usr/bin/drush'
-    $composer_home = '/usr/local/share/composer'
   } elsif $::osfamily == 'RedHat' {
-    $composer_home = '/usr/local/share/composer'
     $drush_cmd = '/usr/bin/drush'
     case $::operatingsystemmajrelease {
       '7': {
@@ -31,6 +30,5 @@ class drush::params {
     }
   } elsif $::osfamily == 'FreeBSD' {
     $drush_cmd = '/usr/local/bin/drush'
-    $composer_home = '/usr/local/share/composer'
   }
 }

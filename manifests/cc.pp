@@ -20,6 +20,6 @@ define drush::cc ($cache = 'all',
   exec {"drush-cc-${name}":
     command => "drush cc $cache $siteroot $u -y",
     onlyif => $onlyif,
-    require => Exec['drush_status_check'],
+    require => Exec['drush-global-download'],
   }
 }
