@@ -1,6 +1,6 @@
 
 class drush (
-  $version = '8.1.15',
+  $version = '8.1.18',
   $drush_cmd = $::drush::params::drush_cmd,
   $drush_release_url = $::drush::params::drush_release_url
   ) inherits ::drush::params {
