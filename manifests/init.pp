@@ -33,15 +33,15 @@ class drush (
   else {
     exec{'drush-global-download':
       command => "/usr/bin/wget -q ${drush_dl_url} -O ${drush_cmd}",
-      creates => "${drush_cmd}",
       returns => [0],
       unless  => "test $(${drush_cmd} --version --pipe) == ${version_actual}",
       require => Package['wget'],
     }
-    -> exec {'drush_status_check':
-      command => 'phar ${drush_cmd} status',
-      require => File["${drush_cmd}"],
+    exec {'drush_status_check':
+      command => '${drush_cmd} status',
+      require => Exec["drush-global-download"],
       refreshonly => 'true',
+      subscribe => Exec["drush-global-download"],
     }
   }
 
