@@ -14,9 +14,9 @@ class drush (
   case $version[0] {
     '6': { $version_actual = '6.7.0' }
     '7': { $version_actual = '7.4.0' }
-    '8': { $version_actual = '8.1.15' }
+    '8': { $version_actual = '8.1.18' }
     '9': { $version_actual = '0.6.0' }
-    default: { $version_actual = '8.1.15' } # Default to latest stable.
+    default: { $version_actual = '8.1.18' } # Default to latest stable.
   }
 
   # Download the drush version.
