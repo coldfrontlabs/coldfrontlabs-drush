@@ -38,7 +38,7 @@ class drush (
       require => Package['wget'],
     }
     exec {'drush_status_check':
-      command => '${drush_cmd} status',
+      command => "${drush_cmd} status",
       require => Exec["drush-global-download"],
       refreshonly => 'true',
       subscribe => Exec["drush-global-download"],
