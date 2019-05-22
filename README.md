@@ -1,7 +1,7 @@
 Drush Puppet
 ===============
 
-Manages the installation and configuration of Drush using Composer.
+Manages the installation and configuration of Drush globally. Either using Drush Launcher (Drush >=9) or Drush as a global command (Drush < 9).
 
 Features
 --------
