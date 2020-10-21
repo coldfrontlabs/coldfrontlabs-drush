@@ -11,7 +11,7 @@ define drush::si ($profile = undef,
                   $locale = undef,
                   $site_mail = undef,
                   $site_name = undef,
-                  $sites_subdir = undef,
+                  $sites_subdir = 'default',
                   $settings = '', # key=value... settings to pass in optionally
                   $site_root,
                   $onlyif = 'test !'
@@ -86,15 +86,7 @@ define drush::si ($profile = undef,
     command => "drush si $profile $settings $siteroot $dburl $accountname $accountpass $accountmail $cleanurl $dbprefix $dbsu $dbsupw $lcl $sitemail $sitename $sitessubdir -y",
     cwd     => $site_root,
     onlyif  => $onlyif,
-    timeout => 0,
-    require => [
-      #File["${$site_root}"],
-      Exec['drush-global-download'],
-      Class['php::cli'],
-      Php::Extension['mbstring'],
-      Php::Extension['pdo'],
-      Php::Extension['xml'],
-      #$db_require,
-    ]
+    creates => "${site_root}/sites/${sites_subdir}/settings.php",
+    timeout => 0
   }
 }
