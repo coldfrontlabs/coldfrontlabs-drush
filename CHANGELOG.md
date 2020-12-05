@@ -1,3 +1,6 @@
+v6.x
+  - Remove all commands
+  - Only installs Drush Launcher
 v0.4.3
   - drush arr command
 
