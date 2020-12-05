@@ -1,17 +1,14 @@
 {
   "name": "coldfrontlabs-drush",
-  "version": "0.4.3",
+  "version": "6.0.0",
   "author": "coldfrontlabs",
-  "summary": "Install, manage and run Drush commands with puppet.",
+  "summary": "Install Drush launcher and manage global Drush configuration.",
   "license": "GPL, Version 2.0",
   "source": "https://github.com/coldfrontlabs/coldfrontlabs-drush",
   "project_page": "https://github.com/coldfrontlabs/coldfrontlabs-drush",
   "issues_url": "https://github.com/coldfrontlabs/coldfrontlabs-drush/issues",
   "dependencies": [
-    {"name":"puppetlabs-stdlib","version_requirement":">= 4.3.2"},
-    {"name":"stahnma/epel", "version_requirement":">= 1.0.1"},
-    {"name":"puppetlabs/concat", "version_requirement":">= 1.0.4"},
-    {"name":"puppetlabs/git", "version_requirement":">= 0.2.0"},
-    {"name":"puppet/php", "version_requirement":">= 5.0.0"}
+    { "name": "puppetlabs-stdlib", "version_requirement": ">= 4.3.2" },
+    { "name": "puppetlabs/concat", "version_requirement": ">= 1.0.4" }
   ]
 }
