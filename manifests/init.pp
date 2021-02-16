@@ -1,6 +1,6 @@
 
 class drush (
-  $version = '8.4.1',
+  $version = '8.4.6',
   $drush_cmd = $::drush::params::drush_cmd,
   $drush_release_url = $::drush::params::drush_release_url
   ) inherits ::drush::params {
@@ -14,9 +14,9 @@ class drush (
   case $version[0] {
     '6': { $version_actual = '6.7.0' }
     '7': { $version_actual = '7.4.0' }
-    '8': { $version_actual = '8.4.1' }
+    '8': { $version_actual = '8.4.6' }
     '9': { $version_actual = '0.6.0' }
-    default: { $version_actual = '8.4.1' } # Default to latest stable.
+    default: { $version_actual = '8.4.6' } # Default to latest stable.
   }
 
   # Download the drush version.
