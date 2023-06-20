@@ -1,6 +1,8 @@
 
 # Installs Drush Launcher.
-class drush () {
+class drush (
+  String $launcher_version = '0.6.0'
+) {
 
 
   Exec { path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin'] }
@@ -8,7 +10,7 @@ class drush () {
   ensure_packages(['zip', 'unzip', 'gzip', 'tar', 'bash-completion'])
 
   # Download Drush launcher
-  $version_actual = '0.6.0'
+  $version_actual = $launcher_version
   $drush_cmd = '/usr/bin/drush'
 
   exec{'drush-global-download':
