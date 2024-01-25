@@ -1,7 +1,7 @@
 
 # Installs Drush Launcher.
 class drush (
-  String $launcher_version = '0.6.0'
+  String $launcher_version = '2.0.0'
 ) {
 
 
@@ -13,17 +13,18 @@ class drush (
   $version_actual = $launcher_version
   $drush_cmd = '/usr/bin/drush'
 
-  exec{'drush-global-download':
-    command => "/usr/bin/wget -O ${drush_cmd} https://github.com/drush-ops/drush-launcher/releases/download/${version_actual}/drush.phar",
-    creates => $drush_cmd,
-    returns => [0],
-    require => Package['wget'],
-  }
+  # Drush launcher is not compatible with drush 12 so we need to use a different launcher packaged with this module.
+  # exec{'drush-global-download':
+  #   command => "/usr/bin/wget -O ${drush_cmd} https://github.com/drush-ops/drush-launcher/releases/download/${version_actual}/drush.phar",
+  #   creates => $drush_cmd,
+  #   returns => [0],
+  #   require => Package['wget'],
+  # }
 
   file {$drush_cmd:
     ensure  => 'present',
     mode    => '+rx',
-    require => Exec['drush-global-download'],
+    source  => "puppet:///modules/drush/drush-launcher",
   }
 
   file {'/etc/drush':
